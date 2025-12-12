@@ -1,0 +1,28 @@
+# Ghost Local Installation
+ghost-local/
+
+# Node modules
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# Ghost MCP (wenn installiert)
+ghost-mcp/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
