@@ -1,6 +1,9 @@
-# Ghost Blog: Technologie & Souveränität für Non-Techies
+# Digitalalchemisten - Technologie verständlich gemacht
 
 Ein praxisorientierter Tech-Blog, der komplexe Themen rund um KI, digitale Souveränität und Innovation für Non-Techies zugänglich macht.
+
+**Domain**: digitalalchemisten.de
+**Blog-Titel**: Digitalalchemisten
 
 ## 🎯 Mission
 
