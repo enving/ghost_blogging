@@ -1,6 +1,6 @@
 #!/bin/bash
 # Digitalalchemisten VPS Setup Script
-# Server: 217.154.164.31
+# Server: YOUR_VPS_IP
 # OS: Ubuntu 22.04
 
 set -e  # Exit on error

@@ -1,6 +1,6 @@
 # VPS Deployment: Digitalalchemisten
 
-**Server**: 217.154.164.31
+**Server**: YOUR_VPS_IP
 **OS**: Ubuntu 22.04
 **Domain**: digitalalchemisten.de
 
@@ -9,7 +9,7 @@
 ## Schritt 1: SSH-Verbindung testen
 
 ```bash
-ssh root@217.154.164.31
+ssh root@YOUR_VPS_IP
 ```
 
 Beim ersten Mal:
@@ -24,10 +24,10 @@ Beim ersten Mal:
 
 ```bash
 # Script auf Server kopieren
-scp vps-setup.sh root@217.154.164.31:/root/
+scp vps-setup.sh root@YOUR_VPS_IP:/root/
 
 # Auf Server einloggen
-ssh root@217.154.164.31
+ssh root@YOUR_VPS_IP
 
 # Script ausführbar machen
 chmod +x /root/vps-setup.sh
@@ -90,7 +90,7 @@ ghost install
 ```
 Type: A
 Name: @
-Value: 217.154.164.31
+Value: YOUR_VPS_IP
 TTL: 3600 (oder auto)
 ```
 
@@ -109,7 +109,7 @@ TTL: 3600
 # Auf deinem Rechner
 ping digitalalchemisten.de
 
-# Sollte 217.154.164.31 zeigen
+# Sollte YOUR_VPS_IP zeigen
 ```
 
 ---
@@ -182,7 +182,7 @@ ghost install
 **Check DNS**:
 ```bash
 nslookup digitalalchemisten.de
-# Sollte 217.154.164.31 zeigen
+# Sollte YOUR_VPS_IP zeigen
 ```
 
 **Check Nginx**:
