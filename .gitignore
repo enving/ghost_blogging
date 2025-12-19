@@ -4,9 +4,16 @@ ghost-local/
 # Node modules
 node_modules/
 
-# Environment files
+# Environment files (NEVER commit credentials!)
 .env
 .env.local
+.env.production
+
+# Python virtual environment
+.venv/
+venv/
+__pycache__/
+
 
 # Ghost MCP (wenn installiert)
 ghost-mcp/

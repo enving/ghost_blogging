@@ -11,7 +11,12 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(scp:*)",
-      "Bash(ping:*)"
+      "Bash(ping:*)",
+      "Bash(ssh:*)",
+      "Bash(rm:*)",
+      "Bash(echo \"🔍 Checking for sensitive data in repository...\" echo \"\" echo \"=== Checking for API keys, passwords, tokens ===\" grep -r \"GHOST_ADMIN_API_KEY\\\\|GHOST_API_URL\\\\|API_KEY\\\\|SECRET\\\\|PASSWORD\" --include=\"*.md\" --include=\"*.py\" --include=\"*.js\" --include=\"*.json\" --exclude-dir=\".git\" --exclude-dir=\"node_modules\" --exclude-dir=\".venv\" .)",
+      "Bash(cat:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []

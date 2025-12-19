@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --version:*)",
+      "Bash(npm install:*)",
+      "Bash(ghost install:*)",
+      "Bash(docker --version:*)",
+      "Bash(findstr:*)",
+      "Bash(docker logs:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(scp:*)",
+      "Bash(ping:*)",
+      "Bash(ssh:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
