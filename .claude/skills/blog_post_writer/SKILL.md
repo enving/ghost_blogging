@@ -1,3 +1,8 @@
+---
+name: blog_post_writer
+description: Generates blog posts for non-technical readers about AI, self-hosting, and digital tools. Use when writing tutorials, tool reviews, experience reports, or how-to guides for the Digitalalchemisten blog.
+---
+
 # Digitalalchemisten Blog-Post Writer
 
 ## Mission
@@ -15,23 +20,68 @@ Zeige Tech-Faszinierten ohne Programmierkenntnisse, wie sie mit modernen KI-Tool
 
 ## Tonalität & Stil
 
-**Persönlichkeit**:
-- **Zugänglich & ermutigend**: "Du kannst das, auch ohne Programmierkenntnisse"
-- **Ehrlich & unabhängig**: Keine Werbung, echte Tool-Bewertung mit Vor- & Nachteilen
-- **Praxisorientiert**: Zeige was funktioniert, nicht nur Theorie
-- **Respektvoll**: Nie von oben herab, nie "zu technisch", aber auch nicht unterschätzen
+### **Das "Metacheles-Prinzip": Human, nicht perfekt**
 
-**Storytelling-Ansatz**:
-- Beginne mit **konkretem Nutzen**: "Stell dir vor, du könntest..."
-- Zeige **echte Anwendungsfälle**: Nicht "könnte man", sondern "so nutze ich es"
-- **Transparenz über Tools**: Was kostet es? Wer steckt dahinter? Alternativen?
-- **Ehrliche Fails**: "Das hat nicht funktioniert, deshalb..."
+**Inspiration**: Metacheles.de zeigt, wie man über Tech schreibt, ohne wie ein Bot zu klingen.
 
-**Komplexität managen**:
-- **Fachjargon vermeiden** oder sofort erklären (in Klammern)
-- **Schritt-für-Schritt**: Klein anfangen, dann ausbauen
-- **Screenshots & Visuals**: Zeig, nicht nur beschreib
-- **"Warum das wichtig ist"**: Kontext geben, nicht nur "mach das"
+**Was das bedeutet:**
+- **Emotionen zeigen**: Frust, Begeisterung, Wut, Freude - echt, nicht fake-positiv
+- **Meinung haben**: "Das finde ich scheiße" ist okay (wenn begründet)
+- **Umgangssprache nutzen**: "Clusterfuck", "nervt mich", "krass cool" statt gestelzter Fachsprache
+- **Widersprüche zulassen**: "Ich hasse X, aber nutze es trotzdem weil Y"
+- **Persönliche Konsequenzen**: "Ich mache jetzt Z, weil mir das in der Seele wehtut!"
+
+### **Persönlichkeit zeigen, nicht verstecken**
+
+✅ **GUT - Menschlich**:
+- "Ich saß 3 Stunden vor diesem Fehler und wollte meinen Laptop aus dem Fenster werfen."
+- "Ehrlich? Das verstehe ich auch nicht komplett. Aber es funktioniert."
+- "Microsoft kann mich mal. Ich wechsle zu Linux."
+
+❌ **SCHLECHT - AI-generisch**:
+- "Bei diesem Fehler ist Geduld gefragt."
+- "Die Funktionsweise ist komplex, aber machbar."
+- "Verschiedene Optionen haben jeweilige Vor- und Nachteile."
+
+### **Emotionen als Anker**
+
+**Warum wichtig**: Menschen erinnern sich an Gefühle, nicht an Fakten.
+
+**Emotionale Hooks nutzen**:
+- **Frustration**: "Nach der 47. fehlgeschlagenen Installation hatte ich genug"
+- **Triumph**: "Als es endlich lief, hätte ich tanzen können"
+- **Resignation**: "Big Tech gewinnt wieder. Und es kotzt mich an."
+- **Hoffnung**: "Aber es gibt einen Weg raus..."
+
+### **Metaphern statt Erklärungen**
+
+**Schlecht**: "Ein VPS ist ein virtueller Server mit eigenen Ressourcen"
+**Gut**: "Ein VPS ist wie eine Wohnung in einem Mehrfamilienhaus - dein eigener Raum, aber das Gebäude teilst du"
+
+**Schlecht**: "Windows 11 hat Inkonsistenzen in der UI"
+**Gut**: "Windows 11 ist ein inkonsistenter Clusterfuck - als hätten 5 Teams ohne Absprache gebaut"
+
+### **Storytelling-Ansatz (erweitert)**
+
+- **Persönliche Fails als Hooks**: "Ich habe alles falsch gemacht. Hier ist wie du es besser machst."
+- **Anekdoten statt Abstraktion**: Konkrete Momente ("Um 2 Uhr nachts merkte ich...")
+- **Dialoge einflechten**: "Der Support sagte: '...'. Ich dachte: 'Ernsthaft?!'"
+- **Zeitstempel**: "Vor 3 Tagen", "Gestern Abend", "Seit 6 Monaten"
+
+### **Transparenz UND Meinung**
+
+**Nicht**: "Tool X hat Vor- und Nachteile"
+**Sondern**: "Tool X nervt mich, weil Y. Aber für Z ist es trotzdem das Beste. Ich nutze es widerwillig."
+
+**Nicht**: "Verschiedene Ansätze sind möglich"
+**Sondern**: "Ansatz A ist Standard. Ansatz B ist meine bevorzugte Lösung. Ansatz C ist Bullshit."
+
+### **Komplexität managen (aber authentisch)**
+
+- **Fachjargon**: Nutzen ist okay! Aber sofort erklären: "API (= Schnittstelle zwischen Programmen)"
+- **Zugeben wenn was unklar ist**: "Warum genau das so ist? Keine Ahnung. Aber es funktioniert."
+- **Schritt-für-Schritt OHNE Bevormundung**: "Du bist kein Idiot, aber das hier ist tricky"
+- **"Warum das wichtig ist"** - aber nicht dozieren, sondern erzählen
 
 ## Content-Struktur
 
@@ -176,18 +226,32 @@ Oder kommentier direkt hier! 👇
 
 ## Style-Guide
 
-### Sprache
-✅ **Gut**:
-- "Du kennst das..."
-- "Mir ist aufgefallen..."
-- "Das Coole daran ist..."
-- "Hier wird's spannend..."
+### Sprache (Updated nach Metacheles-Analyse)
 
-❌ **Vermeiden**:
-- "Man könnte argumentieren..."
-- "Es ist empfehlenswert..."
-- "Diesbezüglich..."
-- Marketing-Buzzwords
+✅ **GUT - Menschlich & emotional**:
+- "Du kennst das - 3 Stunden vor dem Laptop, nichts funktioniert"
+- "Mir platzte gestern der Kragen, als..."
+- "Das ist so krass cool, dass ich's kaum glauben konnte"
+- "Hier wird's wild - schnall dich an"
+- "Ehrlich? Das hat mich überrascht"
+- "Ich war skeptisch. Zu Recht, wie sich rausstellte."
+
+❌ **SCHLECHT - AI-generisch & steril**:
+- "Man könnte argumentieren, dass..."
+- "Es ist empfehlenswert, folgende Schritte zu beachten"
+- "Diesbezüglich gibt es verschiedene Ansätze"
+- "Die Lösung bietet diverse Vorteile"
+- "Dies ermöglicht es Nutzern..."
+- Marketing-Buzzwords ohne Kontext
+
+### **Umgangssprache erlaubt (ja, wirklich!)**
+
+**Wenn es passt, nutze:**
+- "Clusterfuck", "Bullshit", "nervt", "kotzt mich an"
+- "Krass", "heftig", "wild", "absurd"
+- "Zum Kotzen", "zum Haare raufen", "macht mich wahnsinnig"
+
+**ABER**: Immer mit Begründung! Nicht einfach fluchen, sondern erklären WARUM etwas nervt.
 
 ### Formatierung
 - **Zwischenüberschriften**: Alle 2-3 Absätze
@@ -411,3 +475,120 @@ Wie war deine erste Docker-Erfahrung?
 ---
 
 **Wichtigste Regel**: Schreib so, dass jemand ohne Tech-Background echte Skills aufbauen kann! 🚀
+
+---
+
+## 🆕 UPDATE 2025-12-19: Obsidian Integration
+
+### Neue Workflow-Features
+
+**Posts werden jetzt in Obsidian erstellt**:
+- **Location**: `content/posts/` (ist jetzt Obsidian Vault)
+- **Template**: `content/posts/Templates/Blog Post.md`
+- **Plugin**: "Send to Ghost" für direktes Publishing
+- **Metadata**: Claude hat Zugriff via `metadata/posts_index.json`
+
+### Frontmatter ist jetzt PFLICHT
+
+Jeder neue Post braucht YAML Frontmatter ganz oben:
+
+```yaml
+---
+title: "Post-Titel"
+tags:
+  - KI & Automation
+  - Für Einsteiger
+excerpt: "Kurze SEO-Beschreibung (1-2 Sätze)"
+status: draft
+featured: false
+---
+```
+
+### Wikilinks nutzen
+
+Interne Verlinkungen mit `[[Post Titel]]` Syntax:
+- Beispiel: `Mehr dazu: [[Ghost Blog Setup]]`
+- Wird automatisch zu Link konvertiert
+- Generiert Backlinks
+
+### Ghost Theme Features (automatisch aktiv)
+
+Wenn Posts zu Ghost gepusht werden:
+- ✅ **Copy Button** (Anthropic-Style) - Leser können Post kopieren
+- ✅ **Glossar-Tooltips** - Begriffe wie "Ghost", "MCP", "VPS" zeigen Definitionen
+- ✅ **Related Posts** - Automatisch basierend auf gemeinsamen Tags
+- ✅ **Backlinks** - Zeigt welche Posts hierher verlinken
+
+### Beispiel: Post mit allen Features
+
+```markdown
+---
+title: "Claude Code für Anfänger: Workflows automatisieren"
+tags:
+  - KI & Automation
+  - Für Einsteiger
+  - Tutorial
+excerpt: "Lerne wie du mit Claude Code repetitive Aufgaben automatisierst - ohne Programmieren"
+status: draft
+featured: true
+---
+
+# Claude Code für Anfänger
+
+Stell dir vor, du könntest [[Ghost Blog Setup|deinen Blog]] komplett mit KI verwalten...
+
+## Was ist Claude Code?
+
+[[MCP]] (Model Context Protocol) ermöglicht es Claude...
+
+*[Rest des Posts]*
+```
+
+### Tag-Taxonomie (Standard-Tags)
+
+Nutze diese Tags für konsistente Kategorisierung:
+
+**Haupt-Kategorien**:
+- `KI & Automation`
+- `Self-Hosting Tutorials`
+- `Digitale Souveränität`
+- `Innovation & Tools`
+- `Privacy & Security`
+
+**Schwierigkeitsgrad**:
+- `Für Einsteiger`
+- `Für Fortgeschrittene`
+- `Für Experten`
+
+**Content-Type**:
+- `Tutorial`
+- `Erfahrungsbericht`
+- `Tool-Review`
+- `Quick-Tip`
+
+### Workflow für neue Posts
+
+1. **Erstelle Post** in Obsidian mit Template (Strg+T)
+2. **Fülle Frontmatter** aus (Tags, Excerpt, etc.)
+3. **Schreibe Content** mit Wikilinks zu verwandten Posts
+4. **Speichere** in `content/posts/`
+5. **Send to Ghost** (Strg+P) oder via Skill
+6. **Metadata updaten**: `python3 obsidian-integration/generate_metadata.py`
+
+### Glossar-Begriffe (werden automatisch zu Tooltips)
+
+Diese Begriffe haben automatische Definitionen:
+- Ghost
+- MCP (Model Context Protocol)
+- VPS (Virtual Private Server)
+- DSGVO
+- Docker
+- Self-Hosting
+- Claude
+- API
+
+Verwende sie natürlich im Text, Tooltips erscheinen automatisch!
+
+---
+
+**Letzte Aktualisierung**: 2025-12-19

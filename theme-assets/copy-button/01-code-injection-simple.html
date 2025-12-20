@@ -1,0 +1,315 @@
+<!--
+  COPY-PASTE BUTTON - QUICKSTART
+
+  Installation: Ghost Admin → Settings → Code Injection → Site Footer
+
+  Füge diesen Code komplett in das "Site Footer" Feld ein.
+  Funktioniert sofort ohne Theme-Änderungen!
+-->
+
+<style>
+/* Copy Button Container */
+.copy-article-container {
+  margin: 3rem auto 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  text-align: center;
+  max-width: 800px;
+}
+
+/* Copy Button Styling (Anthropic-inspiriert) */
+.copy-article-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.copy-article-btn:hover {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.copy-article-btn:active {
+  transform: scale(0.97);
+}
+
+/* Icon */
+.copy-icon {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+}
+
+/* Success State */
+.copy-article-btn.copied {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+/* Checkmark animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.copy-article-btn.copied .btn-text {
+  animation: fadeIn 0.2s ease;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .copy-article-container {
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .copy-article-btn {
+    border-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .copy-article-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.95);
+  }
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  // Nur auf Post-Seiten ausführen
+  const articleContent = document.querySelector('.gh-content, .post-content, article.post');
+  if (!articleContent) return;
+
+  // Button-Container erstellen
+  const container = document.createElement('div');
+  container.className = 'copy-article-container';
+  container.innerHTML = `
+    <button class="copy-article-btn" type="button">
+      <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <span class="btn-text">Artikel kopieren</span>
+    </button>
+  `;
+
+  // Button nach Artikel-Content einfügen
+  articleContent.appendChild(container);
+
+  // Click-Handler
+  const btn = container.querySelector('.copy-article-btn');
+  const btnText = container.querySelector('.btn-text');
+
+  btn.addEventListener('click', async function() {
+    try {
+      // Artikel-Content extrahieren
+      const markdown = extractArticleAsMarkdown();
+
+      // In Zwischenablage kopieren
+      await navigator.clipboard.writeText(markdown);
+
+      // Success-Feedback
+      const originalText = btnText.textContent;
+      btnText.textContent = '✓ Kopiert!';
+      btn.classList.add('copied');
+
+      setTimeout(() => {
+        btnText.textContent = originalText;
+        btn.classList.remove('copied');
+      }, 2000);
+
+    } catch (err) {
+      console.error('Copy failed:', err);
+      btnText.textContent = '❌ Fehler';
+      setTimeout(() => {
+        btnText.textContent = 'Artikel kopieren';
+      }, 2000);
+    }
+  });
+
+  // Funktion: Artikel als Markdown extrahieren
+  function extractArticleAsMarkdown() {
+    let markdown = '';
+
+    // Titel
+    const title = document.querySelector('.gh-article-title, .post-title, h1.article-title, h1');
+    if (title) {
+      markdown += '# ' + title.textContent.trim() + '\n\n';
+    }
+
+    // Autor & Datum (optional)
+    const author = document.querySelector('.author-name, .gh-article-author-name');
+    const date = document.querySelector('.post-date, .gh-article-date, time');
+    if (author || date) {
+      markdown += '_';
+      if (author) markdown += 'Von ' + author.textContent.trim();
+      if (author && date) markdown += ' | ';
+      if (date) markdown += date.textContent.trim();
+      markdown += '_\n\n---\n\n';
+    }
+
+    // Hauptcontent verarbeiten
+    markdown += processContentToMarkdown(articleContent);
+
+    return markdown.trim();
+  }
+
+  // Funktion: HTML zu Markdown konvertieren
+  function processContentToMarkdown(element) {
+    let md = '';
+
+    function processNode(node) {
+      // Text-Knoten
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent.trim();
+        if (text) md += text + ' ';
+        return;
+      }
+
+      // Element-Knoten
+      if (node.nodeType !== Node.ELEMENT_NODE) return;
+
+      // Skip unwanted elements
+      if (node.matches('.copy-article-container, script, style, .kg-bookmark-card')) return;
+
+      const tagName = node.tagName;
+
+      // Headings
+      if (tagName.match(/^H[1-6]$/)) {
+        const level = parseInt(tagName[1]);
+        md += '\n\n' + '#'.repeat(level) + ' ' + node.textContent.trim() + '\n\n';
+        return;
+      }
+
+      // Paragraphs
+      if (tagName === 'P') {
+        md += '\n' + node.textContent.trim() + '\n';
+        return;
+      }
+
+      // Lists
+      if (tagName === 'UL' || tagName === 'OL') {
+        md += '\n';
+        Array.from(node.children).forEach((li, index) => {
+          const prefix = tagName === 'UL' ? '- ' : `${index + 1}. `;
+          md += prefix + li.textContent.trim() + '\n';
+        });
+        md += '\n';
+        return;
+      }
+
+      // Code blocks
+      if (tagName === 'PRE') {
+        const code = node.querySelector('code');
+        if (code) {
+          const language = code.className.match(/language-(\w+)/)?.[1] || '';
+          md += '\n```' + language + '\n' + code.textContent + '\n```\n\n';
+        }
+        return;
+      }
+
+      // Inline code
+      if (tagName === 'CODE' && node.closest('pre') === null) {
+        md += '`' + node.textContent + '`';
+        return;
+      }
+
+      // Bold
+      if (tagName === 'STRONG' || tagName === 'B') {
+        md += '**' + node.textContent + '**';
+        return;
+      }
+
+      // Italic
+      if (tagName === 'EM' || tagName === 'I') {
+        md += '_' + node.textContent + '_';
+        return;
+      }
+
+      // Links
+      if (tagName === 'A') {
+        md += '[' + node.textContent + '](' + node.href + ')';
+        return;
+      }
+
+      // Blockquotes
+      if (tagName === 'BLOCKQUOTE') {
+        const lines = node.textContent.trim().split('\n');
+        lines.forEach(line => {
+          md += '\n> ' + line.trim();
+        });
+        md += '\n\n';
+        return;
+      }
+
+      // Line breaks
+      if (tagName === 'BR') {
+        md += '\n';
+        return;
+      }
+
+      // Horizontal rules
+      if (tagName === 'HR') {
+        md += '\n---\n\n';
+        return;
+      }
+
+      // Images
+      if (tagName === 'IMG') {
+        const alt = node.alt || 'Image';
+        const src = node.src || '';
+        md += '\n![' + alt + '](' + src + ')\n';
+        return;
+      }
+
+      // Ghost-spezifische Cards
+      if (node.classList.contains('kg-image-card')) {
+        const img = node.querySelector('img');
+        if (img) {
+          md += '\n![' + (img.alt || 'Image') + '](' + img.src + ')\n';
+        }
+        return;
+      }
+
+      // Rekursiv Kinder verarbeiten
+      for (const child of node.childNodes) {
+        processNode(child);
+      }
+    }
+
+    processNode(element);
+
+    // Cleanup: Multiple line breaks
+    return md.replace(/\n{3,}/g, '\n\n');
+  }
+
+})();
+</script>

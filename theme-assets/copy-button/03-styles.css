@@ -1,0 +1,247 @@
+/**
+ * COPY ARTICLE BUTTON - Styles
+ *
+ * Installation:
+ * 1. Copy to: content/themes/dein-theme/assets/css/copy-article.css
+ * 2. In default.hbs im <head>:
+ *    <link rel="stylesheet" href="{{asset "css/copy-article.css"}}">
+ *
+ * Features:
+ * - Anthropic-inspiriertes Design
+ * - Dark Mode Support
+ * - Smooth Animations
+ * - Responsive
+ */
+
+/* ============================================
+   Container
+   ============================================ */
+
+.copy-article-container {
+  margin: 3rem auto 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  text-align: center;
+  max-width: 800px;
+}
+
+/* ============================================
+   Button Base
+   ============================================ */
+
+.copy-article-btn {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+
+  /* Appearance */
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+
+  /* Typography */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+
+  /* Interaction */
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Misc */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ============================================
+   Button States
+   ============================================ */
+
+.copy-article-btn:hover {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.copy-article-btn:active {
+  transform: scale(0.97);
+}
+
+.copy-article-btn:focus {
+  outline: 2px solid rgba(0, 123, 255, 0.4);
+  outline-offset: 2px;
+}
+
+.copy-article-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Success State */
+.copy-article-btn.copied {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+.copy-article-btn.copied:hover {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+/* Error State */
+.copy-article-btn.error {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+/* ============================================
+   Icon
+   ============================================ */
+
+.copy-icon {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Text
+   ============================================ */
+
+.btn-text {
+  transition: opacity 0.15s ease;
+}
+
+/* Fade-in Animation für Success */
+.copy-article-btn.copied .btn-text {
+  animation: fadeInUp 0.2s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   Dark Mode
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  .copy-article-container {
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .copy-article-btn {
+    border-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .copy-article-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  /* Success State (Dark) */
+  .copy-article-btn.copied {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #34d399;
+  }
+
+  /* Error State (Dark) */
+  .copy-article-btn.error {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #f87171;
+  }
+}
+
+/* ============================================
+   Ghost-spezifische Theme-Integration
+   ============================================ */
+
+/* Falls Theme eigene Container-Max-Width hat */
+.gh-content .copy-article-container {
+  max-width: 100%;
+}
+
+/* Falls innerhalb von Ghost Article */
+article.gh-article .copy-article-container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 600px) {
+  .copy-article-container {
+    margin: 2rem auto 1rem;
+    padding-top: 1.5rem;
+  }
+
+  .copy-article-btn {
+    font-size: 13px;
+    padding: 8px 16px;
+    gap: 6px;
+  }
+
+  .copy-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* ============================================
+   Print
+   ============================================ */
+
+@media print {
+  .copy-article-container {
+    display: none;
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .copy-article-btn,
+  .btn-text {
+    transition: none;
+    animation: none;
+  }
+
+  .copy-article-btn:active {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .copy-article-btn {
+    border-width: 2px;
+    border-color: currentColor;
+  }
+
+  .copy-article-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+}

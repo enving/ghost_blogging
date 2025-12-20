@@ -1,8 +1,10 @@
 """
 Ghost Blog Publisher - Create and manage blog posts via Ghost Admin API.
 
-This script handles authentication, markdown-to-HTML conversion, and
-post creation/updates through the Ghost Admin API.
+This script handles authentication, Markdown-to-Lexical conversion (Ghost v5+),
+and post creation/updates through the Ghost Admin API.
+
+IMPORTANT: Ghost v5+ uses Lexical format, not HTML!
 """
 
 import requests
@@ -110,35 +112,59 @@ class GhostPublisher:
     def create_post(
         self,
         title: str,
-        html_content: str,
+        markdown_content: str,
         status: str = "draft",
         tags: Optional[List[str]] = None,
         custom_excerpt: Optional[str] = None,
         meta_title: Optional[str] = None,
         meta_description: Optional[str] = None,
-        feature_image: Optional[str] = None
+        feature_image: Optional[str] = None,
+        featured: bool = False,
+        visibility: str = "public"
     ) -> Dict:
         """
-        Create a new blog post in Ghost.
+        Create a new blog post in Ghost using Lexical format (Ghost v5+).
 
         Args:
             title: Post title
-            html_content: Post content in HTML format
+            markdown_content: Post content in Markdown format
             status: Post status ('draft' or 'published')
             tags: List of tag names
             custom_excerpt: Short excerpt for post listings
             meta_title: SEO title (defaults to title)
             meta_description: SEO description
             feature_image: URL to feature image
+            featured: Set to True to feature post on homepage
+            visibility: 'public', 'members', or 'paid'
 
         Returns:
             Response dictionary with post data
         """
+        # Create Lexical format with markdown card (Ghost v5+ compatible)
+        lexical_data = {
+            "root": {
+                "children": [
+                    {
+                        "type": "markdown",
+                        "version": 1,
+                        "markdown": markdown_content
+                    }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "type": "root",
+                "version": 1
+            }
+        }
+
         post_data = {
             "posts": [{
                 "title": title,
-                "html": html_content,
-                "status": status
+                "lexical": json.dumps(lexical_data),
+                "status": status,
+                "featured": featured,
+                "visibility": visibility
             }]
         }
 
@@ -172,26 +198,30 @@ class GhostPublisher:
         post_id: str,
         updated_at: str,
         title: Optional[str] = None,
-        html_content: Optional[str] = None,
+        markdown_content: Optional[str] = None,
         status: Optional[str] = None,
         tags: Optional[List[str]] = None,
         custom_excerpt: Optional[str] = None,
         meta_title: Optional[str] = None,
-        meta_description: Optional[str] = None
+        meta_description: Optional[str] = None,
+        featured: Optional[bool] = None,
+        visibility: Optional[str] = None
     ) -> Dict:
         """
-        Update an existing blog post.
+        Update an existing blog post using Lexical format (Ghost v5+).
 
         Args:
             post_id: ID of the post to update
             updated_at: Timestamp from original post (for conflict prevention)
             title: New title (optional)
-            html_content: New HTML content (optional)
+            markdown_content: New Markdown content (optional)
             status: New status (optional)
             tags: New tags list (optional)
             custom_excerpt: New excerpt (optional)
             meta_title: New SEO title (optional)
             meta_description: New SEO description (optional)
+            featured: Set featured status (optional)
+            visibility: New visibility setting (optional)
 
         Returns:
             Response dictionary with updated post data
@@ -206,8 +236,25 @@ class GhostPublisher:
         post = update_data["posts"][0]
         if title:
             post["title"] = title
-        if html_content:
-            post["html"] = html_content
+        if markdown_content:
+            # Convert to Lexical format
+            lexical_data = {
+                "root": {
+                    "children": [
+                        {
+                            "type": "markdown",
+                            "version": 1,
+                            "markdown": markdown_content
+                        }
+                    ],
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "type": "root",
+                    "version": 1
+                }
+            }
+            post["lexical"] = json.dumps(lexical_data)
         if status:
             post["status"] = status
         if tags is not None:
@@ -218,6 +265,10 @@ class GhostPublisher:
             post["meta_title"] = meta_title
         if meta_description:
             post["meta_description"] = meta_description
+        if featured is not None:
+            post["featured"] = featured
+        if visibility:
+            post["visibility"] = visibility
 
         headers = self._get_headers()
         response = requests.put(

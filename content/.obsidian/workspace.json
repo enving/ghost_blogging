@@ -1,0 +1,208 @@
+{
+  "main": {
+    "id": "540655db82333113",
+    "type": "split",
+    "children": [
+      {
+        "id": "392a1bebfa976292",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b35a34e6444e5b83",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "posts/2025-01-ghost-blog-setup.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2025-01-ghost-blog-setup"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "13a7603d200d576e",
+    "type": "split",
+    "children": [
+      {
+        "id": "a3f870382e195275",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9551de1e7228659d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Dateiexplorer"
+            }
+          },
+          {
+            "id": "c13b636e22ddb2e5",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Suchen"
+            }
+          },
+          {
+            "id": "ea6e1767b9647da5",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Lesezeichen"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "ddece997eae6c5e2",
+    "type": "split",
+    "children": [
+      {
+        "id": "f040ff230e97e25e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c9a2dd2817633707",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "posts/2025-01-claude-mcp-erklaert.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Rückverweise für 2025-01-claude-mcp-erklaert"
+            }
+          },
+          {
+            "id": "b2791f69100e96ac",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "posts/2025-01-claude-mcp-erklaert.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Ausgehende Links von 2025-01-claude-mcp-erklaert öffnen"
+            }
+          },
+          {
+            "id": "66c2ef98fd691d74",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "1849d2ecf6bd5dc5",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Alle Eigenschaften"
+            }
+          },
+          {
+            "id": "c6cc3ef1c14f9666",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "posts/2025-01-claude-mcp-erklaert.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Gliederung von 2025-01-claude-mcp-erklaert"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graph-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "b35a34e6444e5b83",
+  "lastOpenFiles": [
+    "posts/2025-01-ghost-blog-setup.md",
+    "posts/2025-01-claude-mcp-erklaert.md",
+    "posts/2025-12-wie-ki-mein-bloggen-veraendert-hat.md",
+    "posts/2025-01-verwaltung-ki-knowledge-graphs.md.tmp.143549.1766218804857",
+    "posts/2025-01-12-claude-code-fuer-anfaenger-workflows-automatisieren.md",
+    "posts/2025-01-ghost-blog-setup.md.tmp.143549.1766189266749",
+    "posts/2025-12-19-warum-obsidian-perfekt-fuer-blogger-ist.md",
+    "posts/2025-01-claude-mcp-erklaert.md.tmp.143549.1766189248572",
+    "posts/2025-12-wie-ki-mein-bloggen-veraendert-hat.md.tmp.143549.1766189212650",
+    "posts/2025-12-claude-skills-opencode-revolution.md.tmp.143549.1766189133391",
+    "posts/2025-01-ghost-blog-setup.md.tmp.143549.1766189064847",
+    "posts/2025-12-claude-code-fuer-anfaenger-workflows-automatisieren.md",
+    "posts/2025-01-verwaltung-ki-knowledge-graphs.md",
+    "posts/2025-12-ki-assistenten-selbst-hosten.md",
+    "posts/2025-12-19-warum-obsidian-perfekt-fuer-blogger-ist.md.tmp.143549.1766183891042",
+    "posts/2025-12-ghost-blog-mit-claude-verbinden.md",
+    "posts/2025-12-ki-veraendert-bloggen.md",
+    "post_ideas/full skill compatibility/https:/agentskills.io/integrate-skills.md",
+    "post_ideas/full skill compatibility/https:/agentskills.io/overview.md"
+  ]
+}

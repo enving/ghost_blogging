@@ -1,3 +1,15 @@
+---
+title: "KI-Assistenten selbst hosten: Wann lohnt es sich wirklich?"
+tags:
+  - KI & Automation
+  - Self-Hosting Tutorials
+  - Digitale Souveränität
+  - Für Einsteiger
+excerpt: "ChatGPT auf dem eigenen Server? Geht nicht. Aber es gibt Alternativen. Hier erfährst du, wann Self-Hosting Sinn macht – mit echten Kosten und ehrlichen Empfehlungen."
+status: draft
+featured: false
+---
+
 # KI-Assistenten selbst hosten: Wann lohnt es sich wirklich?
 
 Letzte Woche fragte mich ein Firmenchef: "Können wir ChatGPT auf unserem eigenen Server laufen lassen?"
@@ -292,3 +304,28 @@ Oder kommentier direkt hier! 👇
 **Related**: [Digitale Souveränität vs. Convenience: Der ewige Trade-off]
 
 **Disclaimer**: Ich bekomme kein Geld von den genannten Tools. Alle Empfehlungen basieren auf eigener Erfahrung nach 6 Monaten Testing.
+
+
+---
+
+## Tags erklärt
+
+### KI & Automation
+**Künstliche Intelligenz (KI) und Automatisierung** – Posts in dieser Kategorie zeigen, wie moderne KI-Tools wie Claude, ChatGPT oder selbstgehostete Modelle deine Workflows automatisieren können. Nicht als Ersatz für menschliches Denken, sondern als intelligentes Werkzeug.
+
+**Praktisch bedeutet das:** Von Content-Erstellung über Code-Generation bis hin zu automatisierten Prüfungen – immer mit dem Fokus auf praktischer Anwendung für Non-Techies.
+
+### Self-Hosting Tutorials
+**Selbst hosten** bedeutet: Deine Dienste (Blog, KI, Datenbank) laufen auf deinem eigenen Server statt bei Big Tech-Anbietern. Diese Tutorials zeigen dir Schritt für Schritt, wie du das machst – auch ohne Programmierkenntnisse.
+
+**Warum Self-Hosting?** Kontrolle über deine Daten, keine Abhängigkeit von Plattformen, volle Anpassbarkeit, oft günstiger als Cloud-Dienste.
+
+### Digitale Souveränität
+**Digitale Souveränität** bedeutet: Du kontrollierst deine digitalen Assets selbst. Keine US-Cloud mit unklaren Datenschutzregeln, keine Abhängigkeit von Plattform-Algorithmen, keine Vendor-Lock-ins.
+
+**Konkret:** EU-Server, eigene Infrastruktur, Open-Source-Software, eigene Regeln. Besonders relevant im Kontext von DSGVO und digitaler Selbstbestimmung.
+
+### Für Einsteiger
+Posts in dieser Kategorie sind **speziell für Nicht-Techniker** geschrieben. Ich erkläre jeden Schritt, nutze Screenshots bei wichtigen Stellen, weise auf häufige Fehler hin und verzichte auf Fachjargon (oder erkläre ihn sofort).
+
+**Zielgruppe:** CEOs, Quereinsteiger, Wissbegierige – alle, die mitschmischen wollen, aber keine Programmierkenntnisse haben.

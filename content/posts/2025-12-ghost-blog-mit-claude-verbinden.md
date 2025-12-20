@@ -1,8 +1,16 @@
-# Ghost Blog mit Claude verbinden: Die komplette Anleitung für Einsteiger
+---
+title: "Ghost Blog mit Claude verbinden: Die komplette Anleitung"
+tags:
+  - KI & Automation
+  - Self-Hosting Tutorials
+  - Ghost
+  - Für Einsteiger
+excerpt: "Claude soll direkt auf deinem Blog posten? Nicht auf Medium, sondern auf DEINEM Blog. Hier ist die komplette Anleitung – von VPS bis API."
+status: draft
+featured: true
+---
 
-**Schwierigkeitsgrad**: Fortgeschritten (aber machbar!)
-**Zeit**: 60-90 Minuten
-**Konzepte**: Ghost CMS, VPS, API, Claude Integration
+# Ghost Blog mit Claude verbinden: Die komplette Anleitung für Einsteiger
 
 ## Mein "Aha!"-Moment mit Ghost und Claude
 
@@ -500,5 +508,30 @@ Oder kommentier hier - ich helfe gerne! 👇
 **Geschätzte Lesezeit**: 15 Minuten
 
 ---
+
+
+---
+
+## Tags erklärt
+
+### KI & Automation
+**Künstliche Intelligenz (KI) und Automatisierung** – Posts in dieser Kategorie zeigen, wie moderne KI-Tools wie Claude, ChatGPT oder selbstgehostete Modelle deine Workflows automatisieren können. Nicht als Ersatz für menschliches Denken, sondern als intelligentes Werkzeug.
+
+**Praktisch bedeutet das:** Von Content-Erstellung über Code-Generation bis hin zu automatisierten Prüfungen – immer mit dem Fokus auf praktischer Anwendung für Non-Techies.
+
+### Self-Hosting Tutorials
+**Selbst hosten** bedeutet: Deine Dienste (Blog, KI, Datenbank) laufen auf deinem eigenen Server statt bei Big Tech-Anbietern. Diese Tutorials zeigen dir Schritt für Schritt, wie du das machst – auch ohne Programmierkenntnisse.
+
+**Warum Self-Hosting?** Kontrolle über deine Daten, keine Abhängigkeit von Plattformen, volle Anpassbarkeit, oft günstiger als Cloud-Dienste.
+
+### Ghost
+**Ghost** ist eine Open-Source Blogging-Plattform. Modern, schnell, fokussiert auf Publishing (statt "alles können" wie WordPress). Mit eingebautem Newsletter-System und REST API für Automatisierung.
+
+**Warum Ghost?** Volle Kontrolle, kein Vendor-Lock-in, perfekt für Self-Hosting, starke Community, regelmäßige Updates.
+
+### Für Einsteiger
+Posts in dieser Kategorie sind **speziell für Nicht-Techniker** geschrieben. Ich erkläre jeden Schritt, nutze Screenshots bei wichtigen Stellen, weise auf häufige Fehler hin und verzichte auf Fachjargon (oder erkläre ihn sofort).
+
+**Zielgruppe:** CEOs, Quereinsteiger, Wissbegierige – alle, die mitschmischen wollen, aber keine Programmierkenntnisse haben.
 
 *P.S.: Ja, dieser Post wurde tatsächlich von Claude geschrieben und automatisch als Draft in Ghost erstellt. Meta, oder? 😄*

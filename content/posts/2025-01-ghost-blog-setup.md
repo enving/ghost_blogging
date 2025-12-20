@@ -1,8 +1,16 @@
-# Ghost Blog selbst hosten: Von Null auf Live in einer Stunde
+---
+title: "Ghost Blog selbst hosten: Von Null auf Live in einer Stunde"
+tags:
+  - Self-Hosting Tutorials
+  - Für Einsteiger
+  - Ghost
+  - Digitale Souveränität
+excerpt: "Du schreibst über digitale Souveränität auf einem US-Server? Ironisch. Hier zeige ich dir, wie du deinen Ghost-Blog in 60 Minuten selbst hostest – für 3€/Monat."
+status: draft
+featured: true
+---
 
-**Schwierigkeitsgrad**: Anfänger
-**Zeit**: 60 Minuten
-**Kosten**: 3€/Monat
+# Ghost Blog selbst hosten: Von Null auf Live in einer Stunde
 
 ## Warum überhaupt selbst hosten?
 
@@ -151,9 +159,28 @@ Schreib mir: [deine@email.de]
 
 ---
 
-**Tags**: #Self-Hosting #Ghost #Tutorial #Docker #Anfänger
-**Serie**: Ghost Blog Setup (Teil 1/3)
-**Nächster Post**: VPS-Deployment & SSL-Setup
+**Related Posts:**
+- [[Ghost Blog mit Claude verbinden]] – Claude + Ghost Integration
+- [[MCP Server erklärt]] – Wie Claude mit Tools spricht
+- [[KI-Assistenten selbst hosten]] – Wann lohnt sich Self-Hosting?
+
+---
+
+## Tags erklärt
+
+### Self-Hosting Tutorials
+**Selbst hosten** bedeutet: Deine Dienste (hier: Ghost Blog) laufen auf deinem eigenen Server statt bei Big Tech. In diesem Tutorial zeige ich dir Schritt für Schritt, wie du das machst – auch ohne Vorkenntnisse.
+
+**Warum Self-Hosting?** Kontrolle über deine Daten, keine Abhängigkeit von Plattformen, volle Anpassbarkeit.
+
+### Für Einsteiger
+Diese Posts sind **speziell für Nicht-Techniker** geschrieben. Ich erkläre jeden Schritt, nutze Screenshots bei wichtigen Stellen und weise auf häufige Fehler hin. Kein Vorwissen nötig!
+
+### Ghost
+**Ghost** ist eine Open-Source Blogging-Plattform. Modern, schnell, fokussiert auf Publishing (statt "alles können" wie WordPress). Perfekt für Blogger, die Kontrolle über ihren Content wollen.
+
+### Digitale Souveränität
+**Digitale Souveränität** bedeutet: Du kontrollierst deine digitalen Assets selbst. Keine US-Cloud, keine Abhängigkeit von Plattform-Algorithmen, keine Vendor-Lock-ins. EU-Server, eigene Infrastruktur, eigene Regeln.
 
 ---
 

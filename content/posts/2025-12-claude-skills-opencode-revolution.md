@@ -1,8 +1,15 @@
-# Claude Skills & OpenCode: Die Revolution der KI-Agenten
+---
+title: "Claude Skills & OpenCode: Die Revolution der KI-Agenten"
+tags:
+  - KI & Automation
+  - Innovation & Tools
+  - Für Einsteiger
+excerpt: "Dein KI-Assistent lernt deine Workflows, bedient deine Tools und versteht deine Fachgebiete. Claude Skills macht's möglich – und OpenCode macht es Open Source."
+status: draft
+featured: false
+---
 
-**Schwierigkeitsgrad**: Mittel 
-**Zeit**: 12 Minuten Lesezeit
-**Konzepte**: KI-Skills, Agenten, Open-Source-Automatisierung
+# Claude Skills & OpenCode: Die Revolution der KI-Agenten
 
 ## Das neue Kapitel der KI-Agenten
 
@@ -392,3 +399,23 @@ Das ist nicht nur "ChatGPT für Programmierer". Das ist der Beginn einer neuen A
 ---
 
 *Dieser Post wurde mit OpenCode + Claude Skills geschrieben. Meta, oder?* 🚀
+
+
+---
+
+## Tags erklärt
+
+### KI & Automation
+**Künstliche Intelligenz (KI) und Automatisierung** – Posts in dieser Kategorie zeigen, wie moderne KI-Tools wie Claude, ChatGPT oder selbstgehostete Modelle deine Workflows automatisieren können. Nicht als Ersatz für menschliches Denken, sondern als intelligentes Werkzeug.
+
+**Praktisch bedeutet das:** Von Content-Erstellung über Code-Generation bis hin zu automatisierten Prüfungen – immer mit dem Fokus auf praktischer Anwendung für Non-Techies.
+
+### Innovation & Tools
+**Neue Tools und innovative Ansätze** für digitale Workflows. Hier teste und bewerte ich praktische Tools – immer ehrlich, unabhängig, ohne gesponserte Empfehlungen.
+
+**Fokus:** Was funktioniert wirklich? Was sind die Kosten (auch versteckte)? Welche Alternativen gibt es? Für wen lohnt sich das Tool?
+
+### Für Einsteiger
+Posts in dieser Kategorie sind **speziell für Nicht-Techniker** geschrieben. Ich erkläre jeden Schritt, nutze Screenshots bei wichtigen Stellen, weise auf häufige Fehler hin und verzichte auf Fachjargon (oder erkläre ihn sofort).
+
+**Zielgruppe:** CEOs, Quereinsteiger, Wissbegierige – alle, die mitschmischen wollen, aber keine Programmierkenntnisse haben.

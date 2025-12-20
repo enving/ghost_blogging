@@ -85,10 +85,34 @@ The skill returns:
 ## Best Practices
 
 1. **Always create drafts first**: Create posts as drafts, review in Ghost Admin, then publish
-2. **Use markdown files**: Store posts as `.md` files for version control and easy editing
+2. **Use markdown files**: Store posts as `.md` files in `content/posts/` for version control and easy editing
 3. **Tag consistently**: Use the standard tags taxonomy (see CLAUDE.md)
 4. **SEO optimization**: Always include meta_title, meta_description, and custom_excerpt
 5. **Test locally**: Use Ghost's local preview before publishing to production
+6. **Use Obsidian**: Posts are managed in Obsidian vault at `content/posts/` with "Send to Ghost" plugin
+7. **Frontmatter**: All posts should have YAML frontmatter (see Templates/Blog Post.md)
+
+## Available Features (2025-12-19 Update)
+
+### Obsidian Integration
+- **Location**: `content/posts/` is the Obsidian vault
+- **Plugin**: "Send to Ghost" plugin installed for direct publishing
+- **Templates**: Available in `content/posts/Templates/Blog Post.md`
+- **Metadata**: Run `python3 obsidian-integration/generate_metadata.py` to generate `metadata/posts_index.json`
+
+### Ghost Theme Features
+- **Copy Button**: Anthropic-style copy-to-clipboard (files in `theme-assets/copy-button/`)
+- **Glossary Tooltips**: Automatic tooltips for technical terms
+- **Wikilinks**: `[[Post Title]]` syntax for internal linking
+- **Related Posts**: Auto-generated based on shared tags
+- **Backlinks**: Shows which posts link to current post
+
+### Workflow Integration
+1. User writes in Obsidian (`content/posts/`)
+2. Uses Template (`Templates/Blog Post.md`)
+3. Adds frontmatter (title, tags, excerpt)
+4. Sends to Ghost via plugin OR via this skill
+5. Metadata auto-updates for Claude access
 
 ## Limitations
 
