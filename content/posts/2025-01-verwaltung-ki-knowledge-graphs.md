@@ -6,7 +6,7 @@ tags:
   - Erfahrungsbericht
 excerpt: Als Förderantragsprüfer habe ich monatelang Dokumente gewälzt. Mit KI & Knowledge Graphs würde das in Tagen gehen. Hier ist mein wildes Gedankenspiel.
 status: draft
-featured Letzte Woche habe ich einen alten Kollegen getroffen. Wir redeten über die gute alte Ze: false
+featured: false
 ---
 
 # Wenn dein Förderantrag 6 Monate liegt, liegt nicht nur dein Projekt still
