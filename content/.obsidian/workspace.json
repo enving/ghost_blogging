@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "392a1bebfa976292",
+        "id": "1af63988e0287a42",
         "type": "tabs",
         "children": [
           {
-            "id": "b35a34e6444e5b83",
+            "id": "06e8c58962951d0a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/2025-01-ghost-blog-setup.md",
+                "file": "posts/2025-01-opencode-ohmyopencode.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-01-ghost-blog-setup"
+              "title": "2025-01-opencode-ohmyopencode"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "mcp",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 242.5
   },
   "right": {
     "id": "ddece997eae6c5e2",
@@ -183,26 +183,45 @@
       "bases:Create new base": false
     }
   },
-  "active": "b35a34e6444e5b83",
+  "active": "9551de1e7228659d",
   "lastOpenFiles": [
+    "posts/2025-01-verwaltung-ki-knowledge-graphs.md",
+    "posts/2025-01-opencode-ohmyopencode.md",
+    "posts/Templates/Blog Post.md",
+    "glossar/Knowledge-Graph.md",
+    "glossar/Knowledge-Graph.md.tmp.47621.1766333821902",
+    "glossar/Claude.md",
     "posts/2025-01-ghost-blog-setup.md",
-    "posts/2025-01-claude-mcp-erklaert.md",
-    "posts/2025-12-wie-ki-mein-bloggen-veraendert-hat.md",
-    "posts/2025-01-verwaltung-ki-knowledge-graphs.md.tmp.143549.1766218804857",
-    "posts/2025-01-12-claude-code-fuer-anfaenger-workflows-automatisieren.md",
-    "posts/2025-01-ghost-blog-setup.md.tmp.143549.1766189266749",
+    "glossar/CI-CD.md",
+    "glossar/Git.md",
+    "glossar/MCP.md",
+    "glossar/SEO.md",
+    "glossar/Docker.md",
+    "glossar/KI.md",
+    "glossar/API.md",
+    "glossar/Ghost.md",
+    "glossar/SSL.md",
+    "Ghost.md",
+    "post_ideas/full skill compatibility/https:/agentskills.io/overview.md",
+    "glossar/DSGVO.md",
+    "glossar/Self-Hosting.md",
+    "glossar/Markdown.md",
+    "glossar/VPS.md",
+    "glossar/GitHub.md",
     "posts/2025-12-19-warum-obsidian-perfekt-fuer-blogger-ist.md",
+    "posts/2025-12-wie-ki-mein-bloggen-veraendert-hat.md",
+    "posts/2025-12-ki-assistenten-selbst-hosten.md",
+    "posts/2025-12-ghost-blog-mit-claude-verbinden.md",
+    "Notizen",
+    "glossar",
+    "Unbenannt.canvas",
+    "Glossar.base",
+    "Unbenannt 1.canvas",
+    "posts/2025-01-verwaltung-ki-knowledge-graphs.md.tmp.143549.1766218804857",
+    "posts/2025-01-ghost-blog-setup.md.tmp.143549.1766189266749",
     "posts/2025-01-claude-mcp-erklaert.md.tmp.143549.1766189248572",
     "posts/2025-12-wie-ki-mein-bloggen-veraendert-hat.md.tmp.143549.1766189212650",
     "posts/2025-12-claude-skills-opencode-revolution.md.tmp.143549.1766189133391",
-    "posts/2025-01-ghost-blog-setup.md.tmp.143549.1766189064847",
-    "posts/2025-12-claude-code-fuer-anfaenger-workflows-automatisieren.md",
-    "posts/2025-01-verwaltung-ki-knowledge-graphs.md",
-    "posts/2025-12-ki-assistenten-selbst-hosten.md",
-    "posts/2025-12-19-warum-obsidian-perfekt-fuer-blogger-ist.md.tmp.143549.1766183891042",
-    "posts/2025-12-ghost-blog-mit-claude-verbinden.md",
-    "posts/2025-12-ki-veraendert-bloggen.md",
-    "post_ideas/full skill compatibility/https:/agentskills.io/integrate-skills.md",
-    "post_ideas/full skill compatibility/https:/agentskills.io/overview.md"
+    "posts/2025-01-ghost-blog-setup.md.tmp.143549.1766189064847"
   ]
 }
