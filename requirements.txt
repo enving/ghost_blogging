@@ -1,0 +1,7 @@
+paramiko
+requests
+python-dotenv
+bcrypt
+PyJWT
+Markdown
+PyYAML

@@ -25,7 +25,21 @@ git clone https://github.com/enving/ghost_blogging.git
 cd ghost_blogging
 ```
 
-### 2. Lokales Ghost starten
+### 2. Python Dependencies installieren
+
+Damit alle Skripte (wie `publish_all_posts.py`) funktionieren:
+
+```bash
+# Optional: Virtual Environment erstellen
+python -m venv venv
+source venv/bin/activate  # Mac/Linux
+# oder: venv\Scripts\activate  # Windows
+
+# Dependencies installieren
+pip install -r requirements.txt
+```
+
+### 3. Lokales Ghost starten
 
 ```bash
 # Ghost via Docker
