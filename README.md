@@ -2,53 +2,76 @@
 
 Ein praxisorientierter Tech-Blog, der komplexe Themen rund um KI, digitale Souveränität und Innovation für Non-Techies zugänglich macht.
 
-**Domain**: digitalalchemisten.de
-**Blog-Titel**: Digitalalchemisten
+**Live:** https://digitalalchemisten.de
+
+---
 
 ## 🎯 Mission
 
 Erfahrungen mit digitalen Tools und KI teilen, sodass auch nicht-technische Menschen die spannenden Entwicklungen nachvollziehen und selbst ausprobieren können.
 
-## 🚀 Setup
+---
 
-### Lokal entwickeln
+## 🚀 Status
 
-```bash
-# Ghost mit Docker starten
-docker run -d --name ghost-local -p 2368:2368 -e NODE_ENV=development -v ghost-content:/var/lib/ghost/content ghost:latest
+| Feature | Status |
+|---------|--------|
+| Blog online | ✅ |
+| Ghost CMS | ✅ |
+| SSL/HTTPS | ✅ |
+| Subscribe/Newsletter | ✅ |
+| Mailgun Integration | ✅ |
 
-# Blog: http://localhost:2368
-# Admin: http://localhost:2368/ghost
-```
+---
 
-### Content-Workflow (Token-sparend!)
+## 📚 Dokumentation
 
-1. Posts als Markdown-Files in `/content/posts/` schreiben
-2. Via Ghost Admin UI importieren
-3. Reviewen & veröffentlichen
+| Datei | Beschreibung |
+|-------|--------------|
+| [AGENT_HANDOVER.md](AGENT_HANDOVER.md) | **Für Agents:** Alle technischen Details, Secrets-Referenz, SSH-Zugang |
+| [CLAUDE.md](CLAUDE.md) | Vollständiger Projektplan & Vision |
+| [SETUP_GUIDE.md](SETUP_GUIDE.md) | Setup-Anleitung für lokale Entwicklung |
+| [VPS_ANLEITUNG.md](VPS_ANLEITUNG.md) | VPS-Deployment Schritt-für-Schritt |
+| [MAILGUN_SETUP.md](MAILGUN_SETUP.md) | E-Mail/Newsletter Konfiguration |
+
+---
+
+## 🔧 Technologie-Stack
+
+- **CMS:** Ghost (selbstgehostet)
+- **Server:** IONOS VPS (Ubuntu)
+- **E-Mail:** Mailgun (EU-Region)
+- **SSL:** Let's Encrypt
+- **CI/CD:** GitHub Actions
+
+---
 
 ## 📂 Repository-Struktur
 
 ```
-ghost-blog/
-├── .github/
-│   └── workflows/       # CI/CD Pipeline
+ghost_blogging/
 ├── content/
-│   ├── posts/          # Markdown Blog-Posts
-│   ├── drafts/         # Entwürfe
-│   ├── themes/         # Custom Theme
-│   └── images/         # Media Files
-├── CLAUDE.md           # Projektplan & Dokumentation
-└── README.md
+│   ├── posts/           # Markdown Blog-Posts
+│   ├── glossar/         # Glossar-Einträge
+│   └── post_ideas/      # Post-Ideen
+├── .github/
+│   └── workflows/       # CI/CD Pipelines
+├── ghost_docs/          # Ghost API Dokumentation
+├── theme-assets/        # Theme-Erweiterungen
+├── AGENT_HANDOVER.md    # Agent-Dokumentation
+├── CLAUDE.md            # Projektplan
+└── README.md            # Diese Datei
 ```
 
-## 🔧 Technologie-Stack
+---
 
-- **Ghost CMS** (Docker)
-- **Node.js** v22+
-- **GitHub** für Version Control
-- **GitHub Actions** für CI/CD
-- **Claude** für Content-Automatisierung
+## 🔐 Secrets
+
+Alle sensiblen Daten sind in **GitHub Actions Secrets** gespeichert (nicht im Code!).
+
+Siehe [AGENT_HANDOVER.md](AGENT_HANDOVER.md) für die vollständige Liste.
+
+---
 
 ## 📝 Content-Kategorien
 
@@ -57,21 +80,19 @@ ghost-blog/
 - 🔧 Self-Hosting Tutorials
 - 💡 Innovation & Tools
 - 🛡️ Privacy & Security
-- 📚 Für Einsteiger
-
-## 🗓️ Projektphase
-
-**Phase 0**: Lokales Development Setup (aktuell)
-- ✅ Ghost läuft lokal
-- ✅ GitHub-Repository erstellt
-- 🔄 Content-Erstellung
-
-**Next Steps**:
-- VPS bei IONOS bestellen
-- Domain registrieren
-- CI/CD Pipeline einrichten
 
 ---
 
-**Erstellt**: 2025-12-12
-**Status**: In Development
+## 💰 Kosten
+
+| Service | Kosten |
+|---------|--------|
+| IONOS VPS S | 2€/Monat |
+| Domain | ~1€/Monat |
+| Mailgun | 0€ (Free: 100 E-Mails/Tag) |
+| SSL | 0€ (Let's Encrypt) |
+| **Total** | **~3€/Monat** |
+
+---
+
+**Letzte Aktualisierung:** 2026-02-01
