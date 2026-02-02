@@ -17,11 +17,11 @@ from typing import Dict, List, Tuple
 # === KONFIGURATION ===
 
 BASE_DIR = Path(__file__).parent.parent
-OBSIDIAN_VAULT = BASE_DIR / "obsidian-vault"
+OBSIDIAN_VAULT = BASE_DIR / "data/obsidian-vault"
 POSTS_DIR = OBSIDIAN_VAULT / "Posts"
 GLOSSARY_DIR = OBSIDIAN_VAULT / "Glossar"
 
-METADATA_DIR = BASE_DIR / "metadata"
+METADATA_DIR = BASE_DIR / "data/metadata"
 METADATA_DIR.mkdir(exist_ok=True)
 
 GHOST_URL = os.getenv("GHOST_API_URL", "http://localhost:2368")

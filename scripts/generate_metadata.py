@@ -14,7 +14,7 @@ from typing import Dict, Tuple
 # Konfiguration
 BASE_DIR = Path(__file__).parent.parent
 POSTS_DIR = BASE_DIR / "content/posts"
-METADATA_DIR = BASE_DIR / "metadata"
+METADATA_DIR = BASE_DIR / "data/metadata"
 METADATA_DIR.mkdir(exist_ok=True)
 
 def extract_frontmatter(md_file: Path) -> Tuple[Dict, str]:
