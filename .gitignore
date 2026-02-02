@@ -33,3 +33,7 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.temp
+
+# SSH Keys
+ssh_keys/
+config_and_ssh.tar.gz
