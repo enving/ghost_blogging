@@ -52,5 +52,5 @@ jobs:
           if [ -z "$SCRIPT_NAME" ]; then
             SCRIPT_NAME="restart_ghost.py"
           fi
-          echo "Running $SCRIPT_NAME..."
-          python "$SCRIPT_NAME"
+          echo "Running scripts/$SCRIPT_NAME..."
+          python "scripts/$SCRIPT_NAME"
