@@ -1,39 +1,92 @@
+# ===========================================
+# Ghost Blog - .gitignore (HARDENED)
+# ===========================================
+
+# ==================
+# SECRETS - CRITICAL
+# ==================
+# NEVER commit these files!
+.env
+.env.*
+*.env
+secrets/
+credentials/
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# SSH Keys - ABSOLUTE NO!
+ssh_keys/
+*.tar.gz
+id_rsa*
+id_ed25519*
+id_dsa*
+id_ecdsa*
+*.ppk
+known_hosts*
+authorized_keys
+
+# API Keys & Tokens
+*_api_key*
+*_token*
+*.secret
+
+# ==================
+# LOCAL DEVELOPMENT
+# ==================
 # Ghost Local Installation
 ghost-local/
 
 # Node modules
 node_modules/
 
-# Environment files (NEVER commit credentials!)
-.env
-.env.local
-.env.production
-
 # Python virtual environment
 .venv/
 venv/
+env/
 __pycache__/
+*.pyc
+*.pyo
 
-
-# Ghost MCP (wenn installiert)
+# Ghost MCP
 ghost-mcp/
 
-# System files
+# ==================
+# SYSTEM FILES
+# ==================
 .DS_Store
 Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
 
-# IDE
+# ==================
+# IDE & EDITOR
+# ==================
 .vscode/
 .idea/
+*.sublime-*
+.project
+.settings/
 
-# Logs
+# ==================
+# LOGS & TEMP
+# ==================
 *.log
 npm-debug.log*
-
-# Temporary files
+yarn-debug.log*
+yarn-error.log*
 *.tmp
 *.temp
+*.bak
+*.backup
 
-# SSH Keys
-ssh_keys/
-config_and_ssh.tar.gz
+# ==================
+# BUILD ARTIFACTS
+# ==================
+dist/
+build/
+*.egg-info/

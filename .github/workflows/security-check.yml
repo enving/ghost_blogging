@@ -1,0 +1,101 @@
+name: Security Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Full history for secret scanning
+
+      - name: Check for secrets in code
+        run: |
+          echo "🔍 Scanning for potential secrets..."
+          
+          # Patterns that should NEVER be in code
+          PATTERNS=(
+            "VPS_PW="
+            "password.*=.*['\"]"
+            "api_key.*=.*['\"]"
+            "secret.*=.*['\"]"
+            "id_rsa"
+            "id_ed25519"
+            "BEGIN.*PRIVATE KEY"
+            "ssh-rsa AAAA"
+            "ssh-ed25519 AAAA"
+          )
+          
+          FOUND=0
+          for pattern in "${PATTERNS[@]}"; do
+            # Exclude .gitignore, .env.example, and markdown docs
+            if git grep -i -E "$pattern" -- ':!*.md' ':!.gitignore' ':!.env.example' ':!*.yml' 2>/dev/null; then
+              echo "⚠️  Found potential secret matching: $pattern"
+              FOUND=1
+            fi
+          done
+          
+          if [ $FOUND -eq 1 ]; then
+            echo ""
+            echo "❌ SECURITY CHECK FAILED!"
+            echo "Potential secrets found in code. Please review and remove."
+            exit 1
+          fi
+          
+          echo "✅ No secrets found in code"
+
+      - name: Check for sensitive files
+        run: |
+          echo "🔍 Checking for sensitive files..."
+          
+          SENSITIVE_FILES=(
+            "*.pem"
+            "*.key"
+            "*.p12"
+            "id_rsa*"
+            "id_ed25519*"
+            "*.tar.gz"
+            "ssh_keys/*"
+          )
+          
+          FOUND=0
+          for pattern in "${SENSITIVE_FILES[@]}"; do
+            if git ls-files "$pattern" 2>/dev/null | grep -q .; then
+              echo "⚠️  Sensitive file tracked: $pattern"
+              FOUND=1
+            fi
+          done
+          
+          if [ $FOUND -eq 1 ]; then
+            echo ""
+            echo "❌ SECURITY CHECK FAILED!"
+            echo "Sensitive files found in repository. Please remove them."
+            exit 1
+          fi
+          
+          echo "✅ No sensitive files tracked"
+          
+      - name: Verify .gitignore
+        run: |
+          echo "🔍 Verifying .gitignore coverage..."
+          
+          REQUIRED_PATTERNS=(
+            ".env"
+            "ssh_keys"
+            "*.pem"
+            "*.key"
+            "id_rsa"
+          )
+          
+          for pattern in "${REQUIRED_PATTERNS[@]}"; do
+            if ! grep -q "$pattern" .gitignore 2>/dev/null; then
+              echo "⚠️  Missing from .gitignore: $pattern"
+            fi
+          done
+          
+          echo "✅ .gitignore verified"
