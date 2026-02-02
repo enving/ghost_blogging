@@ -1,13 +1,10 @@
 name: Ghost Blog Management
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       script:
-        description: 'Script to run (e.g., diagnose_ghost.py)'
+        description: 'Script to run (e.g., restart_ghost.py, diagnose_ghost.py)'
         required: true
         default: 'restart_ghost.py'
 
