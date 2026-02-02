@@ -1,12 +1,15 @@
 name: Ghost Blog Management
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       script:
         description: 'Script to run (e.g., diagnose_ghost.py)'
         required: true
-        default: 'diagnose_ghost.py'
+        default: 'restart_ghost.py'
 
 jobs:
   run-script:
@@ -48,5 +51,9 @@ jobs:
 
       - name: Run Script
         run: |
-          echo "Running ${{ inputs.script }}..."
-          python ${{ inputs.script }}
+          SCRIPT_NAME="${{ inputs.script }}"
+          if [ -z "$SCRIPT_NAME" ]; then
+            SCRIPT_NAME="restart_ghost.py"
+          fi
+          echo "Running $SCRIPT_NAME..."
+          python "$SCRIPT_NAME"
