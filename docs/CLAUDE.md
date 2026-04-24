@@ -17,6 +17,25 @@
 
 ---
 
+### 🚀 Posts zu Ghost publishen
+
+**Workflow**: GitHub Actions (Credentials in Secrets)
+```bash
+# Einzelner Post
+gh workflow run publish.yml -f post_file=dateiname.md --repo enving/ghost_blogging
+
+# Alle Posts
+gh workflow run publish.yml -f publish_all=true --repo enving/ghost_blogging
+```
+
+**Secrets** (GitHub → Settings → Secrets):
+- `GHOST_API_URL`: https://digitalalchemisten.de
+- `GHOST_ADMIN_API_KEY`: id:secret (aus Ghost Admin → Settings → Integrations)
+
+**Wichtig**: URL ohne trailing newlines speichern!
+
+---
+
 ## 📋 Projekt-Übersicht
 
 ### Technologie-Stack
