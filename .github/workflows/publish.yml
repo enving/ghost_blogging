@@ -30,22 +30,17 @@ jobs:
 
       - name: Create .env file from Secrets
         run: |
-          echo "GHOST_API_URL=${{ secrets.GHOST_API_URL }}" | tr -d '\n' >> .env
-          echo "GHOST_ADMIN_API_KEY=${{ secrets.GHOST_ADMIN_API_KEY }}" | tr -d '\n' >> .env
+          # Strip any trailing newlines from secrets
+          echo "GHOST_API_URL=$(echo '${{ secrets.GHOST_API_URL }}' | tr -d '\\r\\n')" > .env
+          echo "GHOST_ADMIN_API_KEY=$(echo '${{ secrets.GHOST_ADMIN_API_KEY }}' | tr -d '\\r\\n')" >> .env
           echo "GHOST_API_VERSION=v5.0" >> .env
 
       - name: Publish single post
         if: github.event.inputs.post_file != ''
         run: |
           python scripts/publish_all_posts.py
-        env:
-          GHOST_API_URL: ${{ secrets.GHOST_API_URL | trim }}
-          GHOST_ADMIN_API_KEY: ${{ secrets.GHOST_ADMIN_API_KEY | trim }}
 
       - name: Publish all posts
         if: github.event.inputs.publish_all == 'true'
         run: |
           python scripts/publish_all_posts.py
-        env:
-          GHOST_API_URL: ${{ secrets.GHOST_API_URL | trim }}
-          GHOST_ADMIN_API_KEY: ${{ secrets.GHOST_ADMIN_API_KEY | trim }}
