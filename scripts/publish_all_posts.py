@@ -9,8 +9,8 @@ import time
 import re
 from pathlib import Path
 
-# Add skill directory to path
-sys.path.insert(0, str(Path(__file__).parent / ".claude/skills/ghost_api_publisher"))
+repo_root = Path(__file__).parent.parent
+sys.path.insert(0, str(repo_root / ".claude/skills/ghost_api_publisher"))
 
 from ghost_publisher import GhostPublisher
 
