@@ -30,10 +30,13 @@ jobs:
 
       - name: Create .env file from Secrets
         run: |
-          # Strip any trailing newlines from secrets
-          echo "GHOST_API_URL=$(echo '${{ secrets.GHOST_API_URL }}' | tr -d '\\r\\n')" > .env
-          echo "GHOST_ADMIN_API_KEY=$(echo '${{ secrets.GHOST_ADMIN_API_KEY }}' | tr -d '\\r\\n')" >> .env
+          # Use printf to strip trailing newlines
+          API_URL=$(printf '%s' "${{ secrets.GHOST_API_URL }}")
+          API_KEY=$(printf '%s' "${{ secrets.GHOST_ADMIN_API_KEY }}")
+          echo "GHOST_API_URL=$API_URL" > .env
+          echo "GHOST_ADMIN_API_KEY=$API_KEY" >> .env
           echo "GHOST_API_VERSION=v5.0" >> .env
+          cat .env
 
       - name: Publish single post
         if: github.event.inputs.post_file != ''
