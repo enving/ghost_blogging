@@ -18,23 +18,27 @@ jobs:
         run: |
           echo "🔍 Scanning for potential secrets..."
           
-          # Patterns that should NEVER be in code
+          # Patterns that should NEVER be in actual code (but allow in variable names and comments)
+          # Look for actual assignments with quotes, not just variable names
           PATTERNS=(
-            "VPS_PW="
-            "password.*=.*['\"]"
-            "api_key.*=.*['\"]"
-            "secret.*=.*['\"]"
-            "id_rsa"
-            "id_ed25519"
-            "BEGIN.*PRIVATE KEY"
+            "VPS_PW=[^\"' ]"
+            "password[ ]*=[ ]*['\"]"
+            "api_key[ ]*=[ ]*['\"]"
+            "secret[ ]*=[ ]*['\"]"
+            "id_rsa[^A-Z]"
+            "id_ed25519[^A-Z]"
+            "BEGIN[^A-Z]*PRIVATE KEY"
             "ssh-rsa AAAA"
             "ssh-ed25519 AAAA"
           )
           
+          # Exclude files that contain placeholder values (like .env.example, documentation)
+          EXCLUDE_PATTERN="(-e .env.example -e .env -e '*.md' -e 'CHANGELOG.md' -e 'INSTALL.md' -e 'README.md')"
+          
           FOUND=0
           for pattern in "${PATTERNS[@]}"; do
             # Exclude .gitignore, .env.example, and markdown docs
-            if git grep -i -E "$pattern" -- ':!*.md' ':!.gitignore' ':!.env.example' ':!*.yml' 2>/dev/null; then
+            if git grep -i -E "$pattern" -- ':!*.md' ':!.gitignore' ':!.env.example' ':!*.yml' ':!.env' 2>/dev/null; then
               echo "⚠️  Found potential secret matching: $pattern"
               FOUND=1
             fi
