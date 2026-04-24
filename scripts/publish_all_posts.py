@@ -80,6 +80,11 @@ def main():
     api_url = os.getenv("GHOST_API_URL", "https://digitalalchemisten.de")
     admin_api_key = os.getenv("GHOST_ADMIN_API_KEY")
 
+    if api_url:
+        api_url = api_url.rstrip('\n\r')
+    if admin_api_key:
+        admin_api_key = admin_api_key.rstrip('\n\r')
+
     if not admin_api_key:
         # Try to read from .env file (for local development)
         env_file = Path(".env")
