@@ -75,12 +75,13 @@ def extract_frontmatter(content):
 
 def main():
     """Main function."""
-    # Load credentials from .env
+    # Load credentials from .env (for local testing)
+    # In GitHub Actions, these will be set as environment variables from Secrets
     api_url = os.getenv("GHOST_API_URL", "https://digitalalchemisten.de")
     admin_api_key = os.getenv("GHOST_ADMIN_API_KEY")
 
     if not admin_api_key:
-        # Try to read from .env file
+        # Try to read from .env file (for local development)
         env_file = Path(".env")
         if env_file.exists():
             with open(env_file, "r") as f:
@@ -91,7 +92,9 @@ def main():
                         api_url = line.split("=", 1)[1].strip()
 
     if not admin_api_key:
-        print("❌ Error: GHOST_ADMIN_API_KEY not found in .env file")
+        print("❌ Error: GHOST_ADMIN_API_KEY not found")
+        print("   - For local testing: Add to .env file")
+        print("   - For GitHub Actions: Configure as Secret")
         return
 
     # Initialize Ghost publisher

@@ -1,56 +1,34 @@
 {
   "nodes": [
     {
-      "id": "2025-01-claude-mcp-erklaert",
-      "title": "2025-01-claude-mcp-erklaert",
-      "tags": [],
-      "status": "draft"
-    },
-    {
-      "id": "2025-01-ghost-blog-setup",
-      "title": "2025-01-ghost-blog-setup",
-      "tags": [],
-      "status": "draft"
-    },
-    {
-      "id": "2025-12-ghost-blog-mit-claude-verbinden",
-      "title": "2025-12-ghost-blog-mit-claude-verbinden",
-      "tags": [],
-      "status": "draft"
-    },
-    {
-      "id": "2025-12-ki-assistenten-selbst-hosten",
-      "title": "2025-12-ki-assistenten-selbst-hosten",
-      "tags": [],
-      "status": "draft"
-    },
-    {
-      "id": "2025-12-claude-skills-opencode-revolution",
-      "title": "2025-12-claude-skills-opencode-revolution",
-      "tags": [],
-      "status": "draft"
-    },
-    {
-      "id": "2025-01-verwaltung-ki-knowledge-graphs",
-      "title": "2025-01-verwaltung-ki-knowledge-graphs",
-      "tags": [],
-      "status": "draft"
-    },
-    {
-      "id": "2025-12-ki-veraendert-bloggen",
-      "title": "2025-12-ki-veraendert-bloggen",
-      "tags": [],
-      "status": "draft"
-    },
-    {
-      "id": "claude-code-fuer-anfaenger-so-automatisierst-du-deine-ersten-workflows",
-      "title": "Claude Code für Anfänger: So automatisierst du deine ersten Workflows",
+      "id": "verwaltungskram-nervt-ki-koennte-foerderantraege-in-tagen-statt-monaten-pruefen",
+      "title": "Verwaltungskram nervt? KI könnte Förderanträge in Tagen statt Monaten prüfen",
       "tags": [
         "KI & Automation",
-        "Für Einsteiger",
-        "Innovation & Tools"
+        "Digitale Souveränität",
+        "Erfahrungsbericht"
       ],
-      "status": "draft"
+      "status": "draft",
+      "difficulty": "einsteiger"
+    },
+    {
+      "id": "ohmyopencode-die-effiziente-auto-claude-alternative-weniger-tokens-mehr-power",
+      "title": "OhMyOpenCode: Die effiziente Auto Claude Alternative – Weniger Tokens, mehr Power",
+      "tags": [
+        "KI & Automation",
+        "Digitale Souveränität",
+        "Innovation & Tools",
+        "Open Source"
+      ],
+      "status": "draft",
+      "difficulty": "einsteiger"
+    },
+    {
+      "id": "obsidian-vault-config",
+      "title": ".obsidian-vault-config",
+      "tags": [],
+      "status": "draft",
+      "difficulty": "einsteiger"
     }
   ],
   "edges": []

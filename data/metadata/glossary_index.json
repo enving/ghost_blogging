@@ -1,0 +1,82 @@
+{
+  "Markdown": {
+    "definition": "Markdown",
+    "file": "content/glossar/Markdown.md",
+    "url": "/glossar#markdown"
+  },
+  "Self-Hosting": {
+    "definition": "Self-Hosting",
+    "file": "content/glossar/Self-Hosting.md",
+    "url": "/glossar#self-hosting"
+  },
+  "API": {
+    "definition": "API",
+    "file": "content/glossar/API.md",
+    "url": "/glossar#api"
+  },
+  "KI": {
+    "definition": "KI",
+    "file": "content/glossar/KI.md",
+    "url": "/glossar#ki"
+  },
+  "MCP": {
+    "definition": "",
+    "file": "content/glossar/MCP.md",
+    "url": "/glossar#mcp"
+  },
+  "VPS": {
+    "definition": "VPS",
+    "file": "content/glossar/VPS.md",
+    "url": "/glossar#vps"
+  },
+  "GitHub": {
+    "definition": "GitHub",
+    "file": "content/glossar/GitHub.md",
+    "url": "/glossar#github"
+  },
+  "Knowledge-Graph": {
+    "definition": "---\ntitle: Knowledge Graph\ncategory: Konzepte & Technologien\ndifficulty: mittel\nrelated_terms: [\"Ontologie\", \"Datenbank\", \"KI\", \"API\"]\n---",
+    "file": "content/glossar/Knowledge-Graph.md",
+    "url": "/glossar#knowledge-graph"
+  },
+  "SSL": {
+    "definition": "SSL",
+    "file": "content/glossar/SSL.md",
+    "url": "/glossar#ssl"
+  },
+  "Ghost": {
+    "definition": "Ghost",
+    "file": "content/glossar/Ghost.md",
+    "url": "/glossar#ghost"
+  },
+  "DSGVO": {
+    "definition": "DSGVO",
+    "file": "content/glossar/DSGVO.md",
+    "url": "/glossar#dsgvo"
+  },
+  "SEO": {
+    "definition": "SEO",
+    "file": "content/glossar/SEO.md",
+    "url": "/glossar#seo"
+  },
+  "Git": {
+    "definition": "Git",
+    "file": "content/glossar/Git.md",
+    "url": "/glossar#git"
+  },
+  "Docker": {
+    "definition": "Docker",
+    "file": "content/glossar/Docker.md",
+    "url": "/glossar#docker"
+  },
+  "CI-CD": {
+    "definition": "CI/CD",
+    "file": "content/glossar/CI-CD.md",
+    "url": "/glossar#ci-cd"
+  },
+  "Claude": {
+    "definition": "Claude",
+    "file": "content/glossar/Claude.md",
+    "url": "/glossar#claude"
+  }
+}

@@ -1,118 +1,69 @@
 {
-  "2025-01-claude-mcp-erklaert": {
-    "title": "2025-01-claude-mcp-erklaert",
-    "file": "2025-01-claude-mcp-erklaert.md",
-    "date": "",
-    "tags": [],
-    "status": "draft",
-    "difficulty": "",
-    "reading_time": "",
-    "featured": false,
-    "excerpt": "",
-    "related_posts": [],
-    "wikilinks": [],
-    "internal_links": []
-  },
-  "2025-01-ghost-blog-setup": {
-    "title": "2025-01-ghost-blog-setup",
-    "file": "2025-01-ghost-blog-setup.md",
-    "date": "",
-    "tags": [],
-    "status": "draft",
-    "difficulty": "",
-    "reading_time": "",
-    "featured": false,
-    "excerpt": "",
-    "related_posts": [],
-    "wikilinks": [],
-    "internal_links": []
-  },
-  "2025-12-ghost-blog-mit-claude-verbinden": {
-    "title": "2025-12-ghost-blog-mit-claude-verbinden",
-    "file": "2025-12-ghost-blog-mit-claude-verbinden.md",
-    "date": "",
-    "tags": [],
-    "status": "draft",
-    "difficulty": "",
-    "reading_time": "",
-    "featured": false,
-    "excerpt": "",
-    "related_posts": [],
-    "wikilinks": [],
-    "internal_links": []
-  },
-  "2025-12-ki-assistenten-selbst-hosten": {
-    "title": "2025-12-ki-assistenten-selbst-hosten",
-    "file": "2025-12-ki-assistenten-selbst-hosten.md",
-    "date": "",
-    "tags": [],
-    "status": "draft",
-    "difficulty": "",
-    "reading_time": "",
-    "featured": false,
-    "excerpt": "",
-    "related_posts": [],
-    "wikilinks": [],
-    "internal_links": []
-  },
-  "2025-12-claude-skills-opencode-revolution": {
-    "title": "2025-12-claude-skills-opencode-revolution",
-    "file": "2025-12-claude-skills-opencode-revolution.md",
-    "date": "",
-    "tags": [],
-    "status": "draft",
-    "difficulty": "",
-    "reading_time": "",
-    "featured": false,
-    "excerpt": "",
-    "related_posts": [],
-    "wikilinks": [],
-    "internal_links": []
-  },
-  "2025-01-verwaltung-ki-knowledge-graphs": {
-    "title": "2025-01-verwaltung-ki-knowledge-graphs",
-    "file": "2025-01-verwaltung-ki-knowledge-graphs.md",
-    "date": "",
-    "tags": [],
-    "status": "draft",
-    "difficulty": "",
-    "reading_time": "",
-    "featured": false,
-    "excerpt": "",
-    "related_posts": [],
-    "wikilinks": [],
-    "internal_links": []
-  },
-  "2025-12-ki-veraendert-bloggen": {
-    "title": "2025-12-ki-veraendert-bloggen",
-    "file": "2025-12-ki-veraendert-bloggen.md",
-    "date": "",
-    "tags": [],
-    "status": "draft",
-    "difficulty": "",
-    "reading_time": "",
-    "featured": false,
-    "excerpt": "",
-    "related_posts": [],
-    "wikilinks": [],
-    "internal_links": []
-  },
-  "claude-code-fuer-anfaenger-so-automatisierst-du-deine-ersten-workflows": {
-    "title": "Claude Code für Anfänger: So automatisierst du deine ersten Workflows",
-    "file": "2025-01-12-claude-code-fuer-anfaenger-workflows-automatisieren.md",
+  "verwaltungskram-nervt-ki-koennte-foerderantraege-in-tagen-statt-monaten-pruefen": {
+    "title": "Verwaltungskram nervt? KI könnte Förderanträge in Tagen statt Monaten prüfen",
+    "file": "content/posts/2025-01-verwaltung-ki-knowledge-graphs.md",
     "date": "",
     "tags": [
       "KI & Automation",
-      "Für Einsteiger",
-      "Innovation & Tools"
+      "Digitale Souveränität",
+      "Erfahrungsbericht"
     ],
     "status": "draft",
-    "difficulty": "",
+    "difficulty": "einsteiger",
     "reading_time": "",
-    "featured": true,
-    "excerpt": "Stell dir vor, du könntest repetitive Computer-Aufgaben mit einfachen Sätzen erledigen lassen - ohne eine Zeile Code schreiben zu müssen. Das ist kein Science-Fiction, sondern jetzt möglich.",
+    "featured": false,
+    "excerpt": "Als Förderantragsprüfer habe ich monatelang Dokumente gewälzt. Mit KI & Knowledge Graphs würde das in Tagen gehen. Hier ist mein wildes Gedankenspiel.",
+    "related_posts": [],
+    "wikilinks": [
+      "GitHub",
+      "glossar/Ghost",
+      "KI",
+      "KI",
+      "SEO",
+      "KI",
+      "KI"
+    ],
+    "internal_links": [],
+    "ghost_published": false
+  },
+  "ohmyopencode-die-effiziente-auto-claude-alternative-weniger-tokens-mehr-power": {
+    "title": "OhMyOpenCode: Die effiziente Auto Claude Alternative – Weniger Tokens, mehr Power",
+    "file": "content/posts/2025-01-opencode-ohmyopencode.md",
+    "date": "",
+    "tags": [
+      "KI & Automation",
+      "Digitale Souveränität",
+      "Innovation & Tools",
+      "Open Source"
+    ],
+    "status": "draft",
+    "difficulty": "einsteiger",
+    "reading_time": "",
+    "featured": false,
+    "excerpt": "OhMyOpenCode: Die effiziente Auto Claude Alternative. Wie du mit diesem GitHub-Plugin Tokens sparst und souverän entwickelst.",
+    "related_posts": [],
+    "wikilinks": [
+      "KI",
+      "Glossar",
+      "KI",
+      "Digitale Souveränität"
+    ],
+    "internal_links": [],
+    "ghost_published": false
+  },
+  "obsidian-vault-config": {
+    "title": ".obsidian-vault-config",
+    "file": "content/posts/.obsidian-vault-config.md",
+    "date": "",
+    "tags": [],
+    "status": "draft",
+    "difficulty": "einsteiger",
+    "reading_time": "",
+    "featured": false,
+    "excerpt": "",
     "related_posts": [],
     "wikilinks": [],
-    "internal_links": []
+    "internal_links": [],
+    "ghost_published": false
   }
 }

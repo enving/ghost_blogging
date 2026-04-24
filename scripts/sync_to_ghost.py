@@ -17,9 +17,9 @@ from typing import Dict, List, Tuple
 # === KONFIGURATION ===
 
 BASE_DIR = Path(__file__).parent.parent
-OBSIDIAN_VAULT = BASE_DIR / "data/obsidian-vault"
-POSTS_DIR = OBSIDIAN_VAULT / "Posts"
-GLOSSARY_DIR = OBSIDIAN_VAULT / "Glossar"
+OBSIDIAN_VAULT = BASE_DIR / "content"
+POSTS_DIR = OBSIDIAN_VAULT / "posts"
+GLOSSARY_DIR = OBSIDIAN_VAULT / "glossar"
 
 METADATA_DIR = BASE_DIR / "data/metadata"
 METADATA_DIR.mkdir(exist_ok=True)
@@ -94,6 +94,14 @@ def generate_posts_index() -> Dict:
     for md_file in POSTS_DIR.glob("**/*.md"):
         # Skip drafts folder (später separat behandeln)
         if "drafts" in md_file.parts:
+            continue
+        
+        # Skip template files
+        if "Templates" in md_file.parts:
+            continue
+            
+        # Skip Ghost.md (empty file)
+        if md_file.name == "Ghost.md":
             continue
 
         frontmatter, body = extract_frontmatter(md_file)
