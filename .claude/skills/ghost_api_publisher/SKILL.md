@@ -20,17 +20,31 @@ Create and manage blog posts on your Ghost blog directly through the Ghost Admin
 
 ## How to Use
 
-1. **Setup**: Ensure your `.env` file contains Ghost credentials:
-   - `GHOST_API_URL`: Your Ghost instance URL
-   - `GHOST_ADMIN_API_KEY`: Admin API key (format: id:secret)
-   - `GHOST_API_VERSION`: API version (v5.0)
+1. **GitHub Actions** (empfohlen - Credentials in Secrets):
+   ```bash
+   # Einzelner Post
+   gh workflow run publish.yml -f post_file=dateiname.md --repo enving/ghost_blogging
 
-2. **Get credentials**:
-   - Login to Ghost Admin → Settings → Integrations
-   - Create custom integration named "Claude API"
-   - Copy Admin API key to `.env` file
+   # Alle Posts auf einmal
+   gh workflow run publish.yml -f publish_all=true --repo enving/ghost_blogging
+   ```
 
-3. **Use the skill**: Ask Claude to create/update blog posts, and it will use the Python script automatically
+2. **Credentials** (GitHub → Settings → Secrets and variables → Actions):
+   - `GHOST_API_URL`: https://digitalalchemisten.de
+   - `GHOST_ADMIN_API_KEY`: id:secret (aus Ghost Admin → Settings → Integrations)
+
+3. **Wichtig**: URL ohne trailing newlines speichern!
+
+### Alternative: Lokal mit .env Datei
+
+Falls du lokal ohne GitHub arbeiten willst, erstelle eine `.env` Datei:
+```
+GHOST_API_URL=https://digitalalchemisten.de
+GHOST_ADMIN_API_KEY=id:secret
+GHOST_API_VERSION=v5.0
+```
+
+Dann kannst du direkt mit Python arbeiten (siehe unten).
 
 ## Input Format
 
