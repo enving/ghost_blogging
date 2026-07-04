@@ -26,6 +26,10 @@ import time
 import paramiko
 
 SERVICE = "ghost_digitalalchemisten-de.service"
+# ghost-cli invokes systemctl with the unit name both with and without the
+# ".service" suffix (systemd treats them as equivalent, sudoers does not -
+# it does exact argument matching). Use a glob so both forms match.
+SERVICE_GLOB = "ghost_digitalalchemisten-de*"
 SUDOERS_FILE = "/etc/sudoers.d/ghost-cli-ghostuser"
 COMMAND_TIMEOUT = 240
 
@@ -73,13 +77,13 @@ def ensure_passwordless_systemctl(ssh):
 
     rule = (
         f"ghostuser ALL=(root) NOPASSWD: "
-        f"{systemctl_path} start {SERVICE}, "
-        f"{systemctl_path} stop {SERVICE}, "
-        f"{systemctl_path} restart {SERVICE}, "
-        f"{systemctl_path} reload {SERVICE}, "
-        f"{systemctl_path} is-active {SERVICE}, "
-        f"{systemctl_path} enable {SERVICE}, "
-        f"{systemctl_path} disable {SERVICE}\n"
+        f"{systemctl_path} start {SERVICE_GLOB}, "
+        f"{systemctl_path} stop {SERVICE_GLOB}, "
+        f"{systemctl_path} restart {SERVICE_GLOB}, "
+        f"{systemctl_path} reload {SERVICE_GLOB}, "
+        f"{systemctl_path} is-active {SERVICE_GLOB}, "
+        f"{systemctl_path} enable {SERVICE_GLOB}, "
+        f"{systemctl_path} disable {SERVICE_GLOB}\n"
     )
     tmp_file = f"{SUDOERS_FILE}.tmp"
     run(ssh, f"cat > {tmp_file} << 'EOF'\n{rule}EOF", "0b) WRITE CANDIDATE SUDOERS RULE")
