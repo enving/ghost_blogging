@@ -6,7 +6,7 @@ on:
       script:
         description: 'Script to run (e.g., restart_ghost.py, diagnose_ghost.py)'
         required: true
-        default: 'restart_ghost.py'
+        default: 'update_ghost_core.py'
 
 jobs:
   run-script:
