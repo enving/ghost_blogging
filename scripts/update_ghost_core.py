@@ -121,6 +121,12 @@ def main():
 
         ensure_passwordless_systemctl(ssh)
 
+        run(
+            ssh,
+            "cd /var/www/ghost && find . ! -path './versions/*' -type f -exec chmod 664 {} \\;",
+            "2b) FIX FILE PERMISSIONS (ghost-cli's own suggested fix - theme was likely uploaded manually as root)",
+        )
+
         status, out, err = run(
             ssh,
             "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost update --force 2>&1'",
