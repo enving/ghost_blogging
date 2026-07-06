@@ -1,0 +1,35 @@
+name: Rebuild Ghost Theme
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'content/**'
+      - 'scripts/rebuild_theme.py'
+
+jobs:
+  rebuild-theme:
+    runs-on: ubuntu-latest
+    name: Rebuild Ghost Theme on VPS
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install paramiko
+
+      - name: Rebuild Ghost Theme
+        env:
+          VPS_IP: ${{ secrets.VPS_IP }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_PW: ${{ secrets.VPS_PW }}
+        run: |
+          python scripts/rebuild_theme.py
