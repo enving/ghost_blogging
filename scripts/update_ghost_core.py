@@ -134,6 +134,15 @@ def main():
             timeout=180,
         )
 
+        run(
+            ssh,
+            "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost setup linux-user systemd --force 2>&1'",
+            "2d) REPAIR SYSTEMD SETUP (ghost-cli's own suggested fix - update got as far as downloading v6.51.0, "
+            "then failed to stop Ghost because it doesn't recognize its own systemd setup)",
+            get_pty=True,
+            timeout=120,
+        )
+
         status, out, err = run(
             ssh,
             "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost update --force 2>&1'",
