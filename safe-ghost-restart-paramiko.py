@@ -9,13 +9,8 @@ import paramiko
 import time
 
 def get_github_secret(secret_name):
-    """Get GitHub secret using gh CLI"""
-    try:
-        result = os.popen(f"gh secret list | grep '{secret_name}' | awk '{{print $2}}'").read().strip()
-        return result if result else None
-    except Exception as e:
-        print(f"❌ Could not get GitHub secret {secret_name}: {e}")
-        return None
+    """Get secret from environment variable (set by GitHub Actions)"""
+    return os.environ.get(secret_name)
 
 def safe_ghost_restart():
     """Safely restart Ghost and clear Nginx cache"""
