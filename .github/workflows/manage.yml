@@ -6,7 +6,7 @@ on:
       script:
         description: 'Script to run (e.g., restart_ghost.py, diagnose_ghost.py)'
         required: true
-        default: 'restart_ghost.py'
+        default: 'update_ghost_core.py'
 
 jobs:
   run-script:
@@ -27,23 +27,24 @@ jobs:
       - name: Create .env file from Secrets
         run: |
           # This step creates the .env file that your scripts expect.
+          # Scripts load it from scripts/.env (Path(__file__).parent / '.env'), not the repo root.
           # It maps GitHub Secrets to the .env file format.
-          echo "VPS_IP=${{ secrets.VPS_IP }}" >> .env
-          echo "VPS_USER=${{ secrets.VPS_USER }}" >> .env
-          echo "VPS_PW=${{ secrets.VPS_PW }}" >> .env
-          echo "BLOG_DOMAIN=${{ secrets.BLOG_DOMAIN }}" >> .env
-          echo "BLOG_URL=${{ secrets.BLOG_URL }}" >> .env
-          echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> .env
-          echo "GHOST_API_URL=${{ secrets.GHOST_API_URL }}" >> .env
-          echo "GHOST_ADMIN_API_KEY=${{ secrets.GHOST_ADMIN_API_KEY }}" >> .env
-          echo "GHOST_CONTENT_API_KEY=${{ secrets.GHOST_CONTENT_API_KEY }}" >> .env
-          echo "GHOST_API_VERSION=${{ vars.GHOST_API_VERSION }}" >> .env
-          
+          echo "VPS_IP=${{ secrets.VPS_IP }}" >> scripts/.env
+          echo "VPS_USER=${{ secrets.VPS_USER }}" >> scripts/.env
+          echo "VPS_PW=${{ secrets.VPS_PW }}" >> scripts/.env
+          echo "BLOG_DOMAIN=${{ secrets.BLOG_DOMAIN }}" >> scripts/.env
+          echo "BLOG_URL=${{ secrets.BLOG_URL }}" >> scripts/.env
+          echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> scripts/.env
+          echo "GHOST_API_URL=${{ secrets.GHOST_API_URL }}" >> scripts/.env
+          echo "GHOST_ADMIN_API_KEY=${{ secrets.GHOST_ADMIN_API_KEY }}" >> scripts/.env
+          echo "GHOST_CONTENT_API_KEY=${{ secrets.GHOST_CONTENT_API_KEY }}" >> scripts/.env
+          echo "GHOST_API_VERSION=${{ vars.GHOST_API_VERSION }}" >> scripts/.env
+
           # Database - MYSQL_DATABASE_NAME is required by scripts!
-          echo "MySQL_database_name=${{ secrets.MYSQL_DATABASE_NAME }}" >> .env
-          echo "MySQL_username=${{ secrets.MYSQL_USERNAME }}" >> .env
-          echo "MySQL_password=${{ secrets.MYSQL_PASSWORD }}" >> .env
-          echo "MySQL_hostname=${{ secrets.MYSQL_HOSTNAME }}" >> .env
+          echo "MySQL_database_name=${{ secrets.MYSQL_DATABASE_NAME }}" >> scripts/.env
+          echo "MySQL_username=${{ secrets.MYSQL_USERNAME }}" >> scripts/.env
+          echo "MySQL_password=${{ secrets.MYSQL_PASSWORD }}" >> scripts/.env
+          echo "MySQL_hostname=${{ secrets.MYSQL_HOSTNAME }}" >> scripts/.env
 
       - name: Run Script
         run: |
