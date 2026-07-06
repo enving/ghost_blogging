@@ -55,11 +55,11 @@ def build_theme_zip(workdir):
 
     run(["corepack", "enable"])
     try:
-        run(["corepack", "pnpm", "install"], cwd=theme_dir)
+        # --no-optional skips optional deps like dtrace-provider (fails in pnpm 11)
+        run(["corepack", "pnpm", "install", "--no-optional"], cwd=theme_dir)
         run(["corepack", "pnpm", "run", "zip"], cwd=theme_dir)
     except RuntimeError:
-        print("pnpm build failed, falling back to npm...")
-        run(["npm", "install"], cwd=theme_dir)
+        print("pnpm build failed, trying gulp directly...")
         run(["npx", "gulp", "zip"], cwd=theme_dir)
 
     dist_dir = theme_dir / "dist"
