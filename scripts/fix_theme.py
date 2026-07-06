@@ -20,6 +20,9 @@ import jwt
 import requests
 
 REPO_URL = "https://github.com/TryGhost/Edition.git"
+# Edition commit from 2026-06-02 — BEFORE site-wide social links support (#515) was added,
+# which introduced the `social_accounts` helper not available in Ghost 6.10.3.
+COMMIT_SHA = "a5c991f8"
 
 
 def load_env():
@@ -47,7 +50,8 @@ def run(cmd, cwd=None):
 
 def build_theme_zip(workdir):
     theme_dir = workdir / "edition"
-    run(["git", "clone", "--depth", "1", REPO_URL, str(theme_dir)])
+    run(["git", "clone", REPO_URL, str(theme_dir)])
+    run(["git", "checkout", COMMIT_SHA], cwd=theme_dir)
 
     run(["corepack", "enable"])
     try:
