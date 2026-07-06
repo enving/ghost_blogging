@@ -127,6 +127,13 @@ def main():
             "2b) FIX FILE PERMISSIONS (ghost-cli's own suggested fix - theme was likely uploaded manually as root)",
         )
 
+        run(
+            ssh,
+            "npm install -g ghost-cli@latest",
+            "2c) UPGRADE GHOST-CLI (1.28.3 can't install Ghost v6.51.0, which needs ghost-cli ^1.29.1)",
+            timeout=180,
+        )
+
         status, out, err = run(
             ssh,
             "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost update --force 2>&1'",
