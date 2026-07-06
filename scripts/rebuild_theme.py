@@ -12,9 +12,9 @@ def rebuild_theme():
     """Rebuild Ghost theme on VPS"""
     
     # Get credentials from environment variables (set by GitHub Actions)
-    vps_ip = os.environ.get('VPS_IP')
-    vps_user = os.environ.get('VPS_USER')
-    vps_pw = os.environ.get('VPS_PW')
+    vps_ip = os.environ.get('VPS_IP', '').strip()
+    vps_user = os.environ.get('VPS_USER', '').strip()
+    vps_pw = os.environ.get('VPS_PW', '').strip()
     
     print(f"Debug - VPS_IP: '{vps_ip}'")
     print(f"Debug - VPS_USER: '{vps_user}'")
