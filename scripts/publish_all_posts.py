@@ -113,6 +113,16 @@ def main():
     # Filter out special files
     md_files = [f for f in md_files if not f.name.startswith(".")]
 
+    # Single-post mode: only publish the file named in POST_FILE.
+    # Without this the script recreates every post on each run, producing duplicates.
+    post_file = os.environ.get("POST_FILE", "").strip()
+    if post_file:
+        md_files = [f for f in md_files if f.name == post_file]
+        if not md_files:
+            print(f"❌ POST_FILE '{post_file}' not found in {posts_dir}")
+            sys.exit(1)
+        print(f"🎯 Single-post mode: {post_file}\n")
+
     print(f"📚 Found {len(md_files)} posts to publish\n")
     print("=" * 60)
 

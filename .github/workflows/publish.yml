@@ -36,10 +36,11 @@ jobs:
           echo "GHOST_API_URL=$API_URL" > .env
           echo "GHOST_ADMIN_API_KEY=$API_KEY" >> .env
           echo "GHOST_API_VERSION=v5.0" >> .env
-          cat .env
 
       - name: Publish single post
         if: github.event.inputs.post_file != ''
+        env:
+          POST_FILE: ${{ github.event.inputs.post_file }}
         run: |
           python scripts/publish_all_posts.py
 
