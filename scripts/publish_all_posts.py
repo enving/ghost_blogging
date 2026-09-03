@@ -135,11 +135,16 @@ def main():
             return 1
         print(f"🎯 Restricted to a single post: {only_name}")
 
-    # Titles already in Ghost — creating them again would duplicate live posts.
+    # Posts already in Ghost, keyed by title: a second create would duplicate
+    # them. Drafts get updated in place, published posts are left alone.
     try:
         existing_raw = ghost.get_posts(limit="all").get("posts", [])
-        existing = {p.get("title", "").strip().lower() for p in existing_raw}
-        print(f"🔍 {len(existing)} posts already in Ghost (checked for duplicates)")
+        existing = {
+            p["title"].strip().lower(): p
+            for p in existing_raw
+            if p.get("title")
+        }
+        print(f"🔍 {len(existing)} posts already in Ghost")
     except Exception as e:
         print(f"❌ Could not read existing posts, aborting to avoid duplicates: {e}")
         return 1
@@ -180,18 +185,47 @@ def main():
             meta_title = metadata.get("meta_title", title)
             meta_description = metadata.get("meta_description", excerpt)
 
-            if title.strip().lower() in existing:
-                print(f"   ⏭️  Already in Ghost, skipping: {title}")
-                skipped_count += 1
-                continue
-
             print(f"   Title: {title}")
             print(f"   Tags: {', '.join(tags)}")
             print(f"   Featured: {featured}")
 
-            # Create draft
             # Clean wikilinks from body before publishing to Ghost
             clean_body = clean_wikilinks(body)
+
+            already = existing.get(title.strip().lower())
+
+            if already and already.get("status") == "published":
+                # Never overwrite something that is live; a text change there
+                # is an editorial decision, not a side effect of a push.
+                print(f"   ⏭️  Already published in Ghost, left untouched")
+                skipped_count += 1
+                continue
+
+            if already:
+                # Draft with the same title: update it instead of adding a
+                # second one. updated_at lets Ghost reject the write if the
+                # post was edited in the admin in the meantime.
+                result = ghost.update_post(
+                    post_id=already["id"],
+                    updated_at=already["updated_at"],
+                    title=title,
+                    markdown_content=clean_body,
+                    status="draft",
+                    tags=tags,
+                    custom_excerpt=excerpt,
+                    featured=featured,
+                    visibility="public",
+                    meta_title=meta_title,
+                    meta_description=meta_description,
+                )
+                if result:
+                    print(f"   ♻️  Existing draft updated")
+                    published_count += 1
+                    time.sleep(1)
+                else:
+                    print(f"   ❌ Update failed")
+                    failed_count += 1
+                continue
 
             result = ghost.create_post(
                 title=title,
