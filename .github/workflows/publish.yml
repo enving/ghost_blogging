@@ -1,6 +1,12 @@
 name: Publish Posts to Ghost
 
 on:
+  # Ein Merge nach main, der Posts anfasst, laedt genau diese Posts hoch.
+  # Sicher, weil das Skript bereits in Ghost vorhandene Titel ueberspringt.
+  push:
+    branches: [main]
+    paths:
+      - 'content/posts/**'
   workflow_dispatch:
     inputs:
       post_file:
@@ -17,6 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Volle Historie, damit der Push-Schritt unten diffen kann.
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -36,14 +45,51 @@ jobs:
           echo "GHOST_API_URL=$API_URL" > .env
           echo "GHOST_ADMIN_API_KEY=$API_KEY" >> .env
           echo "GHOST_API_VERSION=v5.0" >> .env
-          cat .env
 
       - name: Publish single post
         if: github.event.inputs.post_file != ''
+        env:
+          POST_FILE: ${{ github.event.inputs.post_file }}
         run: |
           python scripts/publish_all_posts.py
 
       - name: Publish all posts
-        if: github.event.inputs.publish_all == 'true'
+        if: github.event.inputs.post_file == '' && github.event.inputs.publish_all == 'true'
         run: |
           python scripts/publish_all_posts.py
+
+      - name: Publish posts touched by this push
+        if: github.event_name == 'push'
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          # Nur was dieser Push angefasst hat, nicht der gesamte Ordner. Sonst
+          # wanderten auch aeltere, nie veroeffentlichte Posts mit nach Ghost.
+          base="$BEFORE"
+          if ! git cat-file -e "${base}^{commit}" 2>/dev/null; then
+            base="$(git rev-parse "${AFTER}^" 2>/dev/null || true)"
+          fi
+          if [ -z "$base" ]; then
+            echo "Kein Vergleichsstand vorhanden, nichts zu tun."
+            exit 0
+          fi
+
+          git diff --name-only --diff-filter=AM "$base" "$AFTER" \
+            -- 'content/posts/*.md' > geaendert.txt
+
+          if [ ! -s geaendert.txt ]; then
+            echo "Keine Post-Aenderungen in diesem Push."
+            exit 0
+          fi
+
+          echo "Posts in diesem Push:"
+          sed 's/^/  - /' geaendert.txt
+
+          while IFS= read -r datei; do
+            [ -n "$datei" ] || continue
+            name="$(basename "$datei")"
+            echo "=== $name ==="
+            POST_FILE="$name" python scripts/publish_all_posts.py
+          done < geaendert.txt
