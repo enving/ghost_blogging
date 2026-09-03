@@ -58,7 +58,17 @@ def extract_frontmatter(content):
             key = key.strip()
             value = value.strip().strip('"').strip("'")
 
-            if value:
+            if value.startswith("[") and value.endswith("]"):
+                # Inline-Liste: tags: ["A", "B"] — sonst landet der ganze
+                # Ausdruck als ein einziger Tag in Ghost.
+                inner = value[1:-1].strip()
+                metadata[key] = [
+                    v.strip().strip('"').strip("'")
+                    for v in inner.split(",")
+                    if v.strip()
+                ] if inner else []
+                current_key = None
+            elif value:
                 metadata[key] = value
                 current_key = None
             else:
@@ -113,6 +123,27 @@ def main():
     # Filter out special files
     md_files = [f for f in md_files if not f.name.startswith(".")]
 
+    # Restrict to a single post when asked (workflow input / CLI argument).
+    only = os.environ.get("POST_FILE", "").strip() or (
+        sys.argv[1].strip() if len(sys.argv) > 1 else ""
+    )
+    if only:
+        only_name = Path(only).name
+        md_files = [f for f in md_files if f.name == only_name]
+        if not md_files:
+            print(f"❌ No post named {only_name!r} in {posts_dir}/")
+            return 1
+        print(f"🎯 Restricted to a single post: {only_name}")
+
+    # Titles already in Ghost — creating them again would duplicate live posts.
+    try:
+        existing_raw = ghost.get_posts(limit="all").get("posts", [])
+        existing = {p.get("title", "").strip().lower() for p in existing_raw}
+        print(f"🔍 {len(existing)} posts already in Ghost (checked for duplicates)")
+    except Exception as e:
+        print(f"❌ Could not read existing posts, aborting to avoid duplicates: {e}")
+        return 1
+
     print(f"📚 Found {len(md_files)} posts to publish\n")
     print("=" * 60)
 
@@ -148,6 +179,11 @@ def main():
             # Meta fields
             meta_title = metadata.get("meta_title", title)
             meta_description = metadata.get("meta_description", excerpt)
+
+            if title.strip().lower() in existing:
+                print(f"   ⏭️  Already in Ghost, skipping: {title}")
+                skipped_count += 1
+                continue
 
             print(f"   Title: {title}")
             print(f"   Tags: {', '.join(tags)}")
@@ -221,4 +257,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Propagate failures so the GitHub workflow turns red instead of
+    # reporting success after an aborted run.
+    sys.exit(main() or 0)

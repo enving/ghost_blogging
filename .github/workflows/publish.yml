@@ -40,10 +40,12 @@ jobs:
 
       - name: Publish single post
         if: github.event.inputs.post_file != ''
+        env:
+          POST_FILE: ${{ github.event.inputs.post_file }}
         run: |
           python scripts/publish_all_posts.py
 
       - name: Publish all posts
-        if: github.event.inputs.publish_all == 'true'
+        if: github.event.inputs.post_file == '' && github.event.inputs.publish_all == 'true'
         run: |
           python scripts/publish_all_posts.py
