@@ -78,32 +78,39 @@ if [ -z "$DNS_IP" ] || [ "$DNS_IP" != "$SERVER_IP" ]; then
   exit 0
 fi
 
-echo "== nginx"
-if [ ! -f "$SITE" ]; then
-  sed "s/DOMAIN_PLACEHOLDER/$DOMAIN/" "$SRC/nginx-n8n.conf" > "$SITE"
-fi
-ln -sf "$SITE" /etc/nginx/sites-enabled/n8n
-# Ghosts TLS-Snippet setzt ssl_ecdh_curve (z. B. nur secp384r1). Weicht der n8n-Block ab,
-# scheitert der Handshake nach dem SNI-Wechsel (HelloRetryRequest) mit "illegal parameter"
-# in Firefox/LibreSSL. Deshalb dieselbe Kurve übernehmen.
-echo "   ssl_ecdh_curve in der nginx-Konfiguration:"
-nginx -T 2>/dev/null | awk '/^# configuration file/{f=$4} /^[[:space:]]*ssl_ecdh_curve/{print "     " f " " $0}'
-CURVE=$(nginx -T 2>/dev/null | awk '/^# configuration file/{f=$4} /^[[:space:]]*ssl_ecdh_curve/ && f !~ /n8n/{gsub(";","",$2); print $2; exit}')
-if [ -n "$CURVE" ] && ! grep -q ssl_ecdh_curve "$SITE"; then
-  sed -i "/server_name $DOMAIN;/a\\    ssl_ecdh_curve $CURVE;" "$SITE"
-  echo "   n8n übernimmt ssl_ecdh_curve $CURVE"
-fi
-if ! nginx -t; then
-  # Kaputte Konfig nicht liegen lassen, sonst scheitert der nächste Reload (auch für Ghost).
-  rm -f /etc/nginx/sites-enabled/n8n
-  echo "!! nginx-Konfiguration fehlerhaft, n8n-Site wieder deaktiviert"
-  exit 1
-fi
-systemctl reload nginx
+# TLS-Einstellungen von Ghost übernehmen (gemeinsamer Port 443, siehe nginx-n8n.conf).
+SSL_SNIPPET=/etc/nginx/snippets/ssl-params.conf
+[ -f "$SSL_SNIPPET" ] || SSL_SNIPPET=/etc/letsencrypt/options-ssl-nginx.conf
+echo "== nginx (TLS-Snippet: $SSL_SNIPPET)"
+nginx -T 2>/dev/null | awk -v s="$SSL_SNIPPET" '/^# configuration file/{f=$4} index($0, "include " s){print "   genutzt von " f}' | sort -u
 
-echo "== TLS"
+activate_site() {
+  # $1 = Inhalt. Bei fehlerhafter Konfig alte Version wiederherstellen, damit der
+  # nächste nginx-Reload (auch Ghosts Zertifikatserneuerung) nicht scheitert.
+  [ -f "$SITE" ] && cp "$SITE" "$SITE.bak"
+  printf '%s\n' "$1" > "$SITE"
+  ln -sf "$SITE" /etc/nginx/sites-enabled/n8n
+  if ! nginx -t; then
+    if [ -f "$SITE.bak" ]; then mv "$SITE.bak" "$SITE"; else rm -f /etc/nginx/sites-enabled/n8n; fi
+    nginx -t || rm -f /etc/nginx/sites-enabled/n8n
+    echo "!! nginx-Konfiguration fehlerhaft, vorherigen Stand wiederhergestellt"
+    exit 1
+  fi
+  systemctl reload nginx
+}
+
+CERT=/etc/letsencrypt/live/$DOMAIN/fullchain.pem
 command -v certbot >/dev/null || apt-get install -y -qq certbot python3-certbot-nginx
-certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos --redirect \
-  --register-unsafely-without-email --keep-until-expiring
+if [ ! -f "$CERT" ]; then
+  echo "== TLS: Zertifikat holen"
+  activate_site "server { listen 80; listen [::]:80; server_name $DOMAIN; location / { return 404; } }"
+  certbot certonly --nginx -d "$DOMAIN" --non-interactive --agree-tos \
+    --register-unsafely-without-email --deploy-hook "systemctl reload nginx"
+fi
+
+echo "== nginx: vHost schreiben"
+activate_site "$(sed -e "s|DOMAIN_PLACEHOLDER|$DOMAIN|g" -e "s|SSL_SNIPPET_PLACEHOLDER|$SSL_SNIPPET|" "$SRC/nginx-n8n.conf")"
+rm -f "$SITE.bak"
+
 curl -fsS -o /dev/null "https://$DOMAIN/healthz" && echo "   https://$DOMAIN erreichbar"
 echo "   Fertig – jetzt sofort das Owner-Konto anlegen!"
