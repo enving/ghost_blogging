@@ -11,11 +11,25 @@ SRC="$(cd "$(dirname "$0")" && pwd)"
 SITE=/etc/nginx/sites-available/n8n
 
 echo "== Ressourcen"
-free -h | sed -n 1,2p
+free -h
 df -h / | tail -1
-AVAIL_MB=$(free -m | awk '/^Mem:/{print $7}')
-if [ "$AVAIL_MB" -lt 700 ]; then
-  echo "!! Nur ${AVAIL_MB} MB RAM frei – n8n braucht ~500–1000 MB. Abbruch (FORCE=1 zum Übergehen)."
+
+# Der VPS hat nur ~1,8 GB RAM (Ghost + MySQL belegen ~1 GB). Swap als Puffer,
+# damit der OOM-Killer bei Lastspitzen nicht Ghost oder MySQL trifft.
+if [ "$(swapon --show --noheadings | wc -l)" -eq 0 ]; then
+  echo "   kein Swap vorhanden – lege /swapfile (2 GB) an"
+  fallocate -l 2G /swapfile
+  chmod 600 /swapfile
+  mkswap /swapfile >/dev/null
+  swapon /swapfile
+  grep -q '^/swapfile ' /etc/fstab || echo '/swapfile none swap sw 0 0' >> /etc/fstab
+  sysctl -q vm.swappiness=10
+  echo 'vm.swappiness=10' > /etc/sysctl.d/99-swappiness.conf
+fi
+
+AVAIL_MB=$(free -m | awk '/^Mem:/{m=$7} /^Swap:/{s=$4} END{print m+s}')
+if [ "$AVAIL_MB" -lt 1200 ]; then
+  echo "!! Nur ${AVAIL_MB} MB RAM+Swap frei – zu wenig für n8n. Abbruch (FORCE=1 zum Übergehen)."
   [ "${FORCE:-0}" = "1" ] || exit 1
 fi
 
