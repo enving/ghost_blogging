@@ -32,6 +32,11 @@ keine Secrets, `.env`-Inhalte oder Credentials ausgeben.
 - `WEBHOOK_URL` ist auf die öffentliche URL gesetzt – daraus baut n8n Webhook- und
   OAuth-Callback-URLs (z. B. `https://n8n.digitalalchemisten.de/rest/oauth2-credential/callback`).
 - nginx wird erst aktiviert, wenn DNS auf den Server zeigt; TLS folgt im selben Lauf.
+- **TLS-Falle:** n8n teilt sich Port 443 mit Ghost und muss dasselbe TLS-Snippet nutzen
+  (`/etc/nginx/snippets/ssl-params.conf`). Mit certbots eigenen Optionen scheitern Firefox und
+  Safari mit `SSL_ERROR_ILLEGAL_PARAMETER_ALERT` (anderer Cipher nach HelloRetryRequest).
+  Deshalb holt certbot nur das Zertifikat (`certonly`), den vHost schreibt `setup.sh`.
+  **Nie `certbot --nginx` ohne `certonly` auf diese Domain loslassen.**
 
 ## Update
 
