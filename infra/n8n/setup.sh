@@ -67,6 +67,32 @@ for i in $(seq 1 30); do
   [ "$i" = 30 ] && { echo "!! n8n antwortet nicht"; docker compose logs --tail 30; exit 1; }
 done
 
+echo "== Backup"
+install -m 700 "$SRC/backup.sh" "$DIR/backup.sh"
+echo '30 3 * * * root /opt/n8n/backup.sh >> /var/log/n8n-backup.log 2>&1' > /etc/cron.d/n8n-backup
+chmod 644 /etc/cron.d/n8n-backup
+if ! ls /root/backup/n8n/n8n-volume-*.tgz >/dev/null 2>&1; then
+  echo "   erster Lauf inkl. Volume-Abzug:"
+  "$DIR/backup.sh" full
+else
+  echo "   Cron aktiv, letzter Stand: $(ls -t /root/backup/n8n | head -1)"
+fi
+
+# Mac holt Backups per SSH – der Schlüssel darf NUR backup-ausgabe.sh ausführen (kein Shell-Zugang).
+install -m 700 "$SRC/backup-ausgabe.sh" "$DIR/backup-ausgabe.sh"
+PUB=$(cat "$SRC/backup-mac.pub")
+LINE="command=\"$DIR/backup-ausgabe.sh\",restrict $PUB"
+AK=/root/.ssh/authorized_keys
+mkdir -p /root/.ssh && chmod 700 /root/.ssh && touch "$AK" && chmod 600 "$AK"
+KEYPART=$(echo "$PUB" | awk '{print $2}')
+if grep -qF "$KEYPART" "$AK"; then
+  grep -vF "$KEYPART" "$AK" > "$AK.tmp" || true
+  echo "$LINE" >> "$AK.tmp" && mv "$AK.tmp" "$AK" && chmod 600 "$AK"
+else
+  echo "$LINE" >> "$AK"
+fi
+echo "   Mac-Backup-Schlüssel eingetragen (nur: export | volume | liste)"
+
 # nginx erst aktivieren, wenn DNS stimmt – dann folgt TLS im selben Lauf.
 # Vorher ist n8n nur auf 127.0.0.1 erreichbar (keine offene Owner-Einrichtung per HTTP).
 echo "== DNS"

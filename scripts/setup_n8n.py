@@ -11,7 +11,8 @@ import paramiko
 DOMAIN = "n8n.digitalalchemisten.de"
 REMOTE_DIR = "/root/n8n-setup"
 LOCAL_DIR = Path(__file__).parent.parent / "infra" / "n8n"
-FILES = ["setup.sh", "docker-compose.yml", "nginx-n8n.conf"]
+FILES = ["setup.sh", "docker-compose.yml", "nginx-n8n.conf", "backup.sh",
+         "backup-ausgabe.sh", "backup-mac.pub"]
 
 def load_env():
     env_vars = {}
