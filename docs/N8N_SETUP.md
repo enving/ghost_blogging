@@ -38,6 +38,13 @@ keine Secrets, `.env`-Inhalte oder Credentials ausgeben.
   Deshalb holt certbot nur das Zertifikat (`certonly`), den vHost schreibt `setup.sh`.
   **Nie `certbot --nginx` ohne `certonly` auf diese Domain loslassen.**
 
+## Backup
+
+Nächtlich `/opt/n8n/backup.sh` (Cron 03:30) nach `/root/backup/n8n`: täglicher Export, sonntags
+Volume-Abzug (~15 s Stopp). Der Mac holt die Stände über einen Schlüssel, der nur
+`/opt/n8n/backup-ausgabe.sh` ausführen darf (`infra/n8n/backup-mac.pub`). Details und
+Wiederherstellung: `~/Documents/Dev/werkzeuge/n8n/AGENTS.md`.
+
 ## Update
 
 Erneut `setup_n8n.py` über Actions ausführen – zieht das aktuelle `stable`-Image und startet neu.
