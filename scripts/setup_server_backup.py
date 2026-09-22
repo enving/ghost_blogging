@@ -44,7 +44,11 @@ ssh.connect(hostname=env['VPS_IP'], username=env['VPS_USER'], password=env['VPS_
 print("✅ SSH verbunden")
 
 if action == "status":
-    code = run(ssh, f"{REMOTE}/gdrive-backup.sh status; echo '== Log'; tail -n 20 /var/log/server-backup.log")
+    code = run(ssh, "echo '== System'; . /etc/os-release; echo \"$PRETTY_NAME, Kernel $(uname -r)\"; "
+                    "free -h | sed -n 1,3p; df -h / | tail -1; "
+                    "systemctl is-active nginx mysql docker 'ghost_*' 2>/dev/null | paste -sd' ' -; "
+                    f"echo '== Drive'; {REMOTE}/gdrive-backup.sh status; "
+                    "echo '== Log'; tail -n 20 /var/log/server-backup.log")
     ssh.close(); sys.exit(code)
 
 token = os.environ.get("RCLONE_DRIVE_TOKEN", "").strip()
