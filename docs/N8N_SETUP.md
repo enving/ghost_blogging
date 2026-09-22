@@ -41,3 +41,9 @@ keine Secrets, `.env`-Inhalte oder Credentials ausgeben.
 ## Update
 
 Erneut `setup_n8n.py` über Actions ausführen – zieht das aktuelle `stable`-Image und startet neu.
+
+## Lokale Anbindung (MCP, API, Secrets)
+
+Siehe `~/Documents/Dev/werkzeuge/n8n/AGENTS.md` (MCP-Server für alle Harnesses, Schlüsselbund,
+Betrieb, Fallen). Der Encryption Key wurde einmalig RSA-verschlüsselt über die Actions exportiert;
+das Skript ist wieder entfernt.
