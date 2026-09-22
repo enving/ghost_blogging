@@ -7,6 +7,10 @@ on:
         description: 'Script to run (e.g., restart_ghost.py, diagnose_ghost.py)'
         required: true
         default: 'update_ghost_core.py'
+      action:
+        description: 'Optional: Aktion für das Skript (z. B. system, status bei setup_server_backup.py)'
+        required: false
+        default: ''
 
 jobs:
   run-script:
@@ -47,6 +51,11 @@ jobs:
           echo "MySQL_hostname=${{ secrets.MYSQL_HOSTNAME }}" >> scripts/.env
 
       - name: Run Script
+        env:
+          # Nur als Umgebungsvariablen (maskiert), nicht in scripts/.env – JSON würde echo zerlegen.
+          RCLONE_DRIVE_TOKEN: ${{ secrets.RCLONE_DRIVE_TOKEN }}
+          RCLONE_CRYPT_PASS: ${{ secrets.RCLONE_CRYPT_PASS }}
+          SERVER_BACKUP_ACTION: ${{ inputs.action }}
         run: |
           SCRIPT_NAME="${{ inputs.script }}"
           if [ -z "$SCRIPT_NAME" ]; then
