@@ -48,7 +48,9 @@ if action == "status":
                     "free -h | sed -n 1,3p; df -h / | tail -1; "
                     "systemctl is-active nginx mysql docker 'ghost_*' 2>/dev/null | paste -sd' ' -; "
                     f"echo '== Drive'; {REMOTE}/gdrive-backup.sh status; "
-                    "echo '== Log'; tail -n 20 /var/log/server-backup.log")
+                    "echo '== Prozesse'; pgrep -a -f 'rclone|backup-ausgabe|tar --one' | cut -c1-120 || echo keine; "
+                    "echo '== Log'; echo \"Rate-Limit-Meldungen: $(grep -c rateLimitExceeded /var/log/server-backup.log)\"; "
+                    "grep -E '^20[0-9]{2}[-/]' /var/log/server-backup.log | cut -c1-200 | tail -n 8")
     ssh.close(); sys.exit(code)
 
 token = os.environ.get("RCLONE_DRIVE_TOKEN", "").strip()
