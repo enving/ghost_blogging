@@ -168,6 +168,22 @@ def main():
             timeout=120,
         )
 
+        _, precheck_out, _ = run(
+            ssh,
+            "id ghost >/dev/null 2>&1 || useradd -o -u $(id -u ghostuser) -g ghostuser "
+            "-d /home/ghostuser -s /usr/sbin/nologin "
+            "-c 'alias for ghost-cli getUid precheck (hardcodes user ghost)' ghost; "
+            "id -u ghost && stat -c %u /var/www/ghost/content",
+            "2d2) GHOST-CLI PRECHECK FIX (getUid() hardcodes user 'ghost' and compares "
+            "its uid to the content dir owner; our install uses 'ghostuser', so the "
+            "check always failed. Alias ghost to the ghostuser uid - no files touched, "
+            "nologin shell, no sudo rights)",
+        )
+        precheck_uids = [line.strip() for line in (precheck_out or "").split() if line.strip().isdigit()]
+        if len(precheck_uids) < 2 or precheck_uids[0] != precheck_uids[1]:
+            print("ghost user uid does not match content owner - aborting before update.")
+            return
+
         status, out, err = run(
             ssh,
             "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost update --force 2>&1'",
