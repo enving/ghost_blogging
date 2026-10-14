@@ -120,7 +120,8 @@ def main():
             print("Backup did not confirm success, aborting update.")
             return
 
-        run(ssh, "cat /var/www/ghost/current/package.json | grep '\"version\"'", "2) VERSION BEFORE UPDATE")
+        _, version_before_out, _ = run(ssh, "cat /var/www/ghost/current/package.json | grep '\"version\"'", "2) VERSION BEFORE UPDATE")
+        version_before = (version_before_out or "").strip()
 
         ensure_passwordless_systemctl(ssh)
 
@@ -170,18 +171,32 @@ def main():
 
         _, precheck_out, _ = run(
             ssh,
-            "id ghost >/dev/null 2>&1 || useradd -o -u $(id -u ghostuser) -g ghostuser "
-            "-d /home/ghostuser -s /usr/sbin/nologin "
-            "-c 'alias for ghost-cli getUid precheck (hardcodes user ghost)' ghost; "
-            "id -u ghost && stat -c %u /var/www/ghost/content",
-            "2d2) GHOST-CLI PRECHECK FIX (getUid() hardcodes user 'ghost' and compares "
-            "its uid to the content dir owner; our install uses 'ghostuser', so the "
-            "check always failed. Alias ghost to the ghostuser uid - no files touched, "
-            "nologin shell, no sudo rights)",
+            # 1) Remove the uid-alias if present (it trips the not-ghost-user doctor check).
+            "if [ \"$(id -u ghost 2>/dev/null)\" = \"$(id -u ghostuser)\" ]; then userdel ghost; fi; "
+            # 2) Back up the unit file, then remove it so setup rebuilds instead of skipping.
+            "ts=$(date +%Y%m%d_%H%M%S); cp /lib/systemd/system/ghost_digitalalchemisten-de.service "
+            "/root/ghost_digitalalchemisten-de.service.bak_$ts && "
+            "rm /lib/systemd/system/ghost_digitalalchemisten-de.service && systemctl daemon-reload && "
+            # 3) Recreate the standard layout: system user ghost, content owned by ghost, fresh unit.
+            "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost setup linux-user systemd --force 2>&1' && "
+            # 4) Verify the precheck inputs now agree.
+            "echo GHOST_UID=$(id -u ghost) CONTENT_UID=$(stat -c %u /var/www/ghost/content) "
+            "UNIT_USER=$(grep -E '^User=' /lib/systemd/system/ghost_digitalalchemisten-de.service)",
+            "2d2) REBUILD SYSTEMD SETUP (unit exists but ghost-cli state is corrupt; "
+            "remove unit so setup recreates user+unit instead of skipping)",
+            get_pty=True,
+            timeout=180,
         )
-        precheck_uids = [line.strip() for line in (precheck_out or "").split() if line.strip().isdigit()]
-        if len(precheck_uids) < 2 or precheck_uids[0] != precheck_uids[1]:
-            print("ghost user uid does not match content owner - aborting before update.")
+        precheck_ok = False
+        for line in (precheck_out or "").splitlines():
+            if line.startswith("GHOST_UID="):
+                parts = dict(item.split("=", 1) for item in line.split() if "=" in item)
+                precheck_ok = (
+                    parts.get("GHOST_UID") == parts.get("CONTENT_UID")
+                    and parts.get("UNIT_USER") == "User=ghost"
+                )
+        if not precheck_ok:
+            print("systemd rebuild did not converge (ghost uid != content owner or unit User != ghost) - aborting.")
             return
 
         status, out, err = run(
@@ -201,7 +216,11 @@ def main():
 
         run(ssh, "sleep 5 && systemctl status ghost_digitalalchemisten-de.service --no-pager | head -15", "4) SERVICE STATUS AFTER UPDATE")
 
-        run(ssh, "cat /var/www/ghost/current/package.json | grep '\"version\"'", "5) VERSION AFTER UPDATE")
+        _, version_after_out, _ = run(ssh, "cat /var/www/ghost/current/package.json | grep '\"version\"'", "5) VERSION AFTER UPDATE")
+        version_after = (version_after_out or "").strip()
+        if update_ok and version_after == version_before and "already on the latest version" not in combined_output:
+            print(f"Version unchanged ({version_after}) without an already-latest notice - treating as failed update.")
+            update_ok = False
 
         run(
             ssh,
