@@ -14,12 +14,17 @@ as root), internally calls `sudo systemctl is-active ...` to check the
 service. ghostuser's sudo rights come from group membership ("(ALL:ALL)
 ALL", per `sudo -l -U ghostuser`) with no NOPASSWD, so that inner sudo
 call hung on an interactive password prompt nobody could answer, and the
-SSH connection eventually reset. This run first installs a narrowly
-scoped NOPASSWD sudoers rule (validated with visudo -c before being
-written) limited to systemctl start/stop/restart/is-active/enable/disable
-on this one service unit, so ghost-cli's own internal calls stop
-prompting. All exec_command calls also get a hard timeout so a stuck
-command fails fast instead of hanging the whole job again.
+SSH connection eventually reset. This run first installs a NOPASSWD
+sudoers rule for ghostuser (validated with visudo -c before being
+written). The rule is deliberately broad (NOPASSWD: ALL): ghost update
+also sudos non-systemctl commands (e.g. `mv` of nginx site configs into
+/etc/nginx/sites-available, `nginx -s reload`, symlink management), and
+each missing command hangs on a `? Sudo Password` prompt that kills the
+SSH session instead of failing fast. ghostuser already holds
+(ALL:ALL) ALL with password via group membership, so this only removes
+the interactive prompt - it grants no new privilege. All exec_command
+calls also get a hard timeout so a stuck command fails fast instead of
+hanging the whole job again.
 """
 from pathlib import Path
 import time
@@ -76,14 +81,11 @@ def ensure_passwordless_systemctl(ssh):
         raise RuntimeError("Could not locate systemctl")
 
     rule = (
-        f"ghostuser ALL=(root) NOPASSWD: "
-        f"{systemctl_path} start {SERVICE_GLOB}, "
-        f"{systemctl_path} stop {SERVICE_GLOB}, "
-        f"{systemctl_path} restart {SERVICE_GLOB}, "
-        f"{systemctl_path} reload {SERVICE_GLOB}, "
-        f"{systemctl_path} is-active {SERVICE_GLOB}, "
-        f"{systemctl_path} enable {SERVICE_GLOB}, "
-        f"{systemctl_path} disable {SERVICE_GLOB}\n"
+        # Broad on purpose: ghost-cli sudos systemctl AND nginx/mv/ln/reload
+        # etc. during update; any missing command hangs on a password prompt
+        # and kills the SSH session. ghostuser already has (ALL:ALL) ALL via
+        # group membership - this only drops the interactive prompt.
+        f"ghostuser ALL=(root) NOPASSWD: ALL\n"
     )
     tmp_file = f"{SUDOERS_FILE}.tmp"
     run(ssh, f"cat > {tmp_file} << 'EOF'\n{rule}EOF", "0b) WRITE CANDIDATE SUDOERS RULE")

@@ -87,6 +87,9 @@ def main():
         run(ssh, "docker ps --format '{{.Names}} {{.Status}}' 2>&1 | head -10; "
                  "swapon --show 2>&1 | head -5",
             "12) N8N COEXISTENCE / SWAP")
+        run(ssh, "ps aux 2>&1 | grep -iE 'ghost (update|install|setup)|ghost-cli' | grep -v grep | head -10; "
+                 "ls /var/www/ghost/versions/ 2>&1 | head -10",
+            "13) STRAY UPDATE PROCESSES / INSTALLED VERSIONS")
 
         print("\n" + "=" * 60)
         print("CHECK DONE (READ-ONLY, no changes made)")
