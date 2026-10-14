@@ -171,20 +171,22 @@ def main():
 
         _, precheck_out, _ = run(
             ssh,
-            # 1) Remove the uid-alias if present (it trips the not-ghost-user doctor check).
-            "if [ \"$(id -u ghost 2>/dev/null)\" = \"$(id -u ghostuser)\" ]; then userdel ghost; fi; "
-            # 2) Back up the unit file, then remove it so setup rebuilds instead of skipping.
-            "ts=$(date +%Y%m%d_%H%M%S); cp /lib/systemd/system/ghost_digitalalchemisten-de.service "
-            "/root/ghost_digitalalchemisten-de.service.bak_$ts && "
-            "rm /lib/systemd/system/ghost_digitalalchemisten-de.service && systemctl daemon-reload && "
-            # 3) Recreate the standard layout: system user ghost, content owned by ghost, fresh unit.
-            "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost setup linux-user systemd --force 2>&1' && "
-            # 4) Verify the precheck inputs now agree.
+            # 1) Stop Ghost so uid 1000 has no processes left (brief downtime starts here).
+            "systemctl stop ghost_digitalalchemisten-de.service || true; "
+            # 2) Remove the uid-alias (userdel refuses while the uid owns processes).
+            "userdel ghost; "
+            # 3) Create the real system user ghost with its own uid.
+            "useradd --system --user-group --home-dir /home/ghost --create-home "
+            "--shell /usr/sbin/nologin --comment 'Ghost service user' ghost && "
+            # 4) Hand the runtime-writable tree to ghost.
+            "chown -R ghost:ghost /var/www/ghost/content && "
+            # 5) Point the freshly rendered unit at ghost (setup wrote User=<old uid>).
+            "sed -i 's/^User=.*/User=ghost/' /lib/systemd/system/ghost_digitalalchemisten-de.service && "
+            "systemctl daemon-reload && "
+            # 6) Verify the precheck inputs now agree.
             "echo GHOST_UID=$(id -u ghost) CONTENT_UID=$(stat -c %u /var/www/ghost/content) "
             "UNIT_USER=$(grep -E '^User=' /lib/systemd/system/ghost_digitalalchemisten-de.service)",
-            "2d2) REBUILD SYSTEMD SETUP (unit exists but ghost-cli state is corrupt; "
-            "remove unit so setup recreates user+unit instead of skipping)",
-            get_pty=True,
+            "2d2) MIGRATE TO STANDARD LAYOUT (dedicated ghost user owns content, unit runs as ghost)",
             timeout=180,
         )
         precheck_ok = False
