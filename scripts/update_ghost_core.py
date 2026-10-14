@@ -225,7 +225,21 @@ def main():
             print("Ghost update refused (compatibility error) - aborting, update step applied nothing.")
             update_ok = False
 
-        run(ssh, "sleep 5 && systemctl status ghost_digitalalchemisten-de.service --no-pager | head -15", "4) SERVICE STATUS AFTER UPDATE")
+        _, svc_after_out, _ = run(ssh, "sleep 5 && systemctl is-active ghost_digitalalchemisten-de.service", "4) SERVICE ACTIVE AFTER UPDATE")
+        svc_active = (svc_after_out or "").strip() == "active"
+        if not svc_active:
+            run(
+                ssh,
+                "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost start 2>&1'",
+                "4b) START GHOST (update only restarts when Ghost was running before)",
+                get_pty=True,
+                timeout=180,
+            )
+            _, svc_after_out, _ = run(ssh, "sleep 10 && systemctl is-active ghost_digitalalchemisten-de.service", "4c) SERVICE ACTIVE AFTER START")
+            svc_active = (svc_after_out or "").strip() == "active"
+        if not svc_active:
+            print("Ghost service is not active after update+start - treating as failed update.")
+            update_ok = False
 
         _, version_after_out, _ = run(ssh, "cat /var/www/ghost/current/package.json | grep '\"version\"'", "5) VERSION AFTER UPDATE")
         version_after = (version_after_out or "").strip()
@@ -233,11 +247,14 @@ def main():
             print(f"Version unchanged ({version_after}) without an already-latest notice - treating as failed update.")
             update_ok = False
 
-        run(
+        _, http_out, _ = run(
             ssh,
             "curl -s -o /dev/null -w 'HTTP %{http_code}\\n' http://127.0.0.1:2368/",
             "6) LOCAL HTTP CHECK",
         )
+        if update_ok and not any(code in (http_out or "") for code in ("HTTP 200", "HTTP 301")):
+            print("Local HTTP check did not return 200/301 - treating as failed update.")
+            update_ok = False
 
         run(
             ssh,
