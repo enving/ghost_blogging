@@ -27,6 +27,7 @@ calls also get a hard timeout so a stuck command fails fast instead of
 hanging the whole job again.
 """
 from pathlib import Path
+import sys
 import time
 import paramiko
 
@@ -138,6 +139,28 @@ def main():
 
         run(
             ssh,
+            "curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && apt-get install -y nodejs 2>&1 | tail -3",
+            "2c2) UPGRADE NODE TO LATEST 22.x (Ghost 6.70.0 requires ^22.23.1; server had v22.22.0)",
+            timeout=300,
+        )
+
+        _, node_out, _ = run(ssh, "node --version", "2c3) VERIFY NODE VERSION")
+        node_version = (node_out or "").strip().lstrip("v")
+        node_parts = (node_version.split(".") + ["0", "0"])[:3]
+        try:
+            node_major, node_minor, node_patch = (int(p) for p in node_parts)
+        except ValueError:
+            node_major, node_minor, node_patch = 0, 0, 0
+        node_ok = (
+            (node_major == 22 and (node_minor, node_patch) >= (23, 1))
+            or (node_major == 24 and (node_minor, node_patch) >= (20, 0))
+        )
+        if not node_ok:
+            print(f"Node {node_version} does not satisfy Ghost (^22.23.1 || ^24.20.0) - aborting before update.")
+            return
+
+        run(
+            ssh,
             "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost setup linux-user systemd --force 2>&1'",
             "2d) REPAIR SYSTEMD SETUP (ghost-cli's own suggested fix - update got as far as downloading v6.51.0, "
             "then failed to stop Ghost because it doesn't recognize its own systemd setup)",
@@ -154,6 +177,11 @@ def main():
         )
         if err == "timeout":
             print("Update command timed out - checking whatever state we're left in below.")
+        combined_output = (out or "") + (err or "")
+        update_ok = True
+        if "not compatible with the current Node version" in combined_output or "SystemError" in combined_output:
+            print("Ghost update refused (compatibility error) - aborting, update step applied nothing.")
+            update_ok = False
 
         run(ssh, "sleep 5 && systemctl status ghost_digitalalchemisten-de.service --no-pager | head -15", "4) SERVICE STATUS AFTER UPDATE")
 
@@ -167,8 +195,13 @@ def main():
 
         print("\n" + "=" * 60)
         print(f"Backup saved at: {backup_path}")
-        print("UPDATE COMPLETE")
+        if update_ok:
+            print("UPDATE COMPLETE")
+        else:
+            print("UPDATE FAILED - see output above, server left untouched by update step")
         print("=" * 60)
+        if not update_ok:
+            sys.exit(1)
 
     finally:
         ssh.close()
