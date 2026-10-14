@@ -90,6 +90,13 @@ def main():
         run(ssh, "ps aux 2>&1 | grep -iE 'ghost (update|install|setup)|ghost-cli' | grep -v grep | head -10; "
                  "ls /var/www/ghost/versions/ 2>&1 | head -10",
             "13) STRAY UPDATE PROCESSES / INSTALLED VERSIONS")
+        run(ssh, "cat /var/www/ghost/.ghost-cli 2>&1 | head -30; echo '---GLOBAL CONFIG---'; "
+                 "cat /home/ghostuser/.ghost/config 2>&1 | head -30",
+            "14) GHOST-CLI INSTANCE STATE (.ghost-cli + global config)")
+        run(ssh, "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost doctor 2>&1' | head -40",
+            "15) GHOST DOCTOR")
+        run(ssh, "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost ls 2>&1' | head -15",
+            "16) GHOST LS")
 
         print("\n" + "=" * 60)
         print("CHECK DONE (READ-ONLY, no changes made)")
