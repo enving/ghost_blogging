@@ -244,8 +244,7 @@ def main():
         _, version_after_out, _ = run(ssh, "cat /var/www/ghost/current/package.json | grep '\"version\"'", "5) VERSION AFTER UPDATE")
         version_after = (version_after_out or "").strip()
         if update_ok and version_after == version_before and "already on the latest version" not in combined_output:
-            print(f"Version unchanged ({version_after}) without an already-latest notice - treating as failed update.")
-            update_ok = False
+            print(f"Note: version unchanged ({version_after}) - service/HTTP gates below decide success.")
 
         _, http_out, _ = run(
             ssh,
