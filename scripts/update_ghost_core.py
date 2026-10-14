@@ -201,6 +201,12 @@ def main():
             print("systemd rebuild did not converge (ghost uid != content owner or unit User != ghost) - aborting.")
             return
 
+        run(
+            ssh,
+            "docker stop n8n 2>&1 || echo 'n8n stop skipped'; free -h | head -2",
+            "2d3) FREE RAM (stop n8n container during update, restarted at the end)",
+        )
+
         status, out, err = run(
             ssh,
             "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost update --force 2>&1'",
@@ -212,6 +218,9 @@ def main():
             print("Update command timed out - checking whatever state we're left in below.")
         combined_output = (out or "") + (err or "")
         update_ok = True
+        if status != 0:
+            print(f"Ghost update exited with status {status} - treating as failed.")
+            update_ok = False
         if "not compatible with the current Node version" in combined_output or "SystemError" in combined_output:
             print("Ghost update refused (compatibility error) - aborting, update step applied nothing.")
             update_ok = False
@@ -228,6 +237,12 @@ def main():
             ssh,
             "curl -s -o /dev/null -w 'HTTP %{http_code}\\n' http://127.0.0.1:2368/",
             "6) LOCAL HTTP CHECK",
+        )
+
+        run(
+            ssh,
+            "docker start n8n 2>&1 || echo 'n8n start skipped'; docker ps --format '{{.Names}} {{.Status}}' 2>&1 | head -5",
+            "7) RESTART N8N (runs even if the update failed)",
         )
 
         print("\n" + "=" * 60)
