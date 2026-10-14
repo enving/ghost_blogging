@@ -93,6 +93,9 @@ def main():
         run(ssh, "cat /var/www/ghost/.ghost-cli 2>&1 | head -30; echo '---GLOBAL CONFIG---'; "
                  "cat /home/ghostuser/.ghost/config 2>&1 | head -30",
             "14) GHOST-CLI INSTANCE STATE (.ghost-cli + global config)")
+        run(ssh, "id ghost 2>&1; id ghostuser 2>&1; stat -c 'content owner: %U(%u)' /var/www/ghost/content 2>&1; "
+                 "grep -E '^(User|Group)=|WorkingDirectory=' /lib/systemd/system/ghost_digitalalchemisten-de.service 2>&1",
+            "14b) SYSTEMD PRECHECK INPUTS (ghost user vs content owner vs unit User)")
         run(ssh, "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost doctor 2>&1' | head -40",
             "15) GHOST DOCTOR")
         run(ssh, "sudo -u ghostuser bash -lc 'cd /var/www/ghost && ghost ls 2>&1' | head -15",
