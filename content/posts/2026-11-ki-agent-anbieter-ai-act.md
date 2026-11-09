@@ -8,12 +8,10 @@ meta_description: "Agenten mit dem Mistral Agents SDK oder ähnlichen Werkzeugen
 tags:
   - KI & Automation
   - KI-Governance
-status: draft
+status: published
 featured: false
 timestamp: 2026-11-09T10:00:00+01:00
 ---
-
-# Ich baue einen KI-Agenten mit dem SDK des Herstellers. Bin ich jetzt Anbieter?
 
 Ich sitze gerade in der Fortbildung zum KI-Beauftragten, und eine Frage hat mich dort länger beschäftigt als gedacht.
 Ich baue Agenten mit dem Agents SDK von Mistral. Das Modell kommt von Mistral, die Laufzeit auch, auf Wunsch sogar
