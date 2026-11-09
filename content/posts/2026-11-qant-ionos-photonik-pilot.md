@@ -9,6 +9,7 @@ tags:
   - KI & Automation
   - Digitale Souveränität
 featured: false
+status: published
 timestamp: 2026-11-09T16:00:00+01:00
 ---
 
@@ -17,8 +18,8 @@ Rechenzentrum, Betreiber und Daten in Deutschland liegen. Bei der Hardware bleib
 
 Seit Kurzem gibt es dazu ein Angebot, das ich mir genauer angesehen habe: Q.ANT, ein Unternehmen aus Stuttgart, stellt
 seinen photonischen Prozessor als Server im Rechenzentrum von IONOS bereit. Ausgewählte Pilotpartner bekommen
-kostenlos Zugang. Ich halte das für einen möglichen Meilenstein. Ob es einer wird, hängt an einer Frage, die noch
-niemand öffentlich beantwortet hat. Deshalb werden wir einen Piloten vorschlagen.
+kostenlos Zugang. Ich halte das für einen möglichen Meilenstein. Für große Sprachmodelle fehlen auf der Pilotseite
+jedoch konkrete Messergebnisse. Deshalb werden wir einen Piloten vorschlagen.
 
 ## Was ein photonischer Prozessor ist
 
@@ -68,7 +69,7 @@ von Unternehmen den Strom verbraucht.
 
 Was fehlt:
 
-- Das LRZ hat keine Sprachmodelle getestet.
+- Der LRZ-Bericht beschreibt keinen Test großer Sprachmodelle.
 - Q.ANT nennt kein Modell, keine Modellgröße, keinen Durchsatz und keinen Energiewert pro Antwort.
 - Die Zahlen auf der Pilotseite („40 Prozent weniger Parameter“ in der Bildverarbeitung, „99,7 Prozent der
   BF16-Genauigkeit“) kommen ohne Angabe, wie sie gemessen wurden.
@@ -81,10 +82,10 @@ beurteilt werden.
 
 Drei Gründe:
 
-1. **Die ganze Kette liegt in Europa.** Chip aus Stuttgart, Server in einem deutschen Rechenzentrum, Betreiber mit
-   Sitz in Deutschland. Für Unternehmen, die KI unter DSGVO und KI-Verordnung betreiben müssen, ist das bisher bei
-   der Hardware kaum zu haben.
-2. **Energie ist der Engpass der Inferenz.** Wenn ein Teil der Rechenarbeit mit deutlich weniger Strom läuft, sinken
+1. **Chipentwicklung und Betrieb liegen in Deutschland.** Q.ANT entwickelt und fertigt die NPU laut eigener Angabe
+   in Stuttgart, IONOS betreibt den Server in Deutschland. Das schafft eine europäische Hardwareoption;
+   über die Herkunft sämtlicher Serverkomponenten sagt es nichts aus.
+2. **Energie begrenzt den Ausbau der Inferenz.** Wenn ein Teil der Rechenarbeit mit deutlich weniger Strom läuft, sinken
    Kosten und Abhängigkeit von knappen Grafikkarten.
 3. **Der Zugang ist niedrig.** Ein Server per SSH und ein PyTorch-SDK, das ist kein Forschungslabor. Damit können
    auch kleinere Teams prüfen, ob die Technik für sie trägt.
