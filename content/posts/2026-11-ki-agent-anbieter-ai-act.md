@@ -152,6 +152,29 @@ kennen, bevor der erste Agent live geht.
 Wie ich das für Firmen als offene Vorlage aufbaue, steht im Repo
 [kobetriebssystem](https://github.com/enving/kobetriebssystem/blob/main/docs/architektur/anbieterrolle-und-pflichtenabdeckung-2026-11-09.md).
 
+## Treibt das kleine Firmen in die Abhängigkeit?
+
+Ein Einwand liegt nahe: Wenn man beim Selbstbauen so schnell Anbieter wird, kaufen kleine
+und mittlere Firmen lieber etwas Fertiges ein. Fertige Agentenplattformen kommen aber meist aus den USA. Dann
+macht man sich wieder abhängig, nur diesmal wegen einer Verordnung, die eigentlich mehr Kontrolle bringen soll.
+
+Den Fehlanreiz gibt es. Die Rechnung hinter dem Einkauf geht aber an drei Stellen nicht auf:
+
+- **Einkaufen nimmt dir den Zweck nicht ab.** Setzt ihr ein gekauftes Werkzeug für eine Aufgabe aus Anhang III ein,
+  werdet ihr nach Art. 25 Abs. 1 Buchst. c trotzdem Anbieter. Als Betreiber bleiben ohnehin Pflichten, etwa KI-Kompetenz
+  (Art. 4) und bei Hochrisiko die Betreiberpflichten aus Art. 26. Die teuren Pflichten hängen am Zweck, nicht daran,
+  wer den Agenten gebaut hat.
+- **Bei geringem Risiko ist Anbieter sein billig.** KI-Hinweis im Dialog, Kennzeichnung erzeugter Inhalte, geschulte
+  Leute. Das schafft eine kleine Firma auch mit einem selbst gebauten Agenten.
+- **Fertig heißt nicht klar.** Auch europäische Plattformen wie Le Chat von Mistral, Langdock oder nuwacom haben
+  Baukästen für Assistenten und Agenten. Wer dort Agenten zusammenstellt, steht in derselben Grauzone wie bei Grok oder Claude. Die Frage,
+  ab wann Konfigurieren zu Entwickeln wird, stellt sich bei jedem Hersteller.
+
+Was bleibt, ist die Unsicherheit. Solange niemand verbindlich sagt, wo diese Grenze liegt, greifen vorsichtige Firmen
+eher zum fertigen Produkt. Das trifft ausgerechnet die, die mit eigenen Agenten unabhängiger werden könnten. Mein Rat:
+Entscheidet nicht aus Angst vor dem Wort „Anbieter“, sondern prüft den Zweck. Für einen Agenten mit geringem Risiko
+ist Selbstbauen auf einem Framework, bei dem ihr das Modell wechseln könnt, oft die unabhängigere Wahl.
+
 ## Mein Fazit
 
 Wer mit einem Hersteller-SDK oder einem Baukasten einen Agenten für einen festen Zweck baut und unter eigenem Namen einsetzt, ist Anbieter.
