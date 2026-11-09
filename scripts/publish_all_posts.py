@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
-Publishes all blog posts from content/posts/ to Ghost as drafts.
+Publishes blog posts from content/posts/ to Ghost.
+
+Default is draft. Only a post whose frontmatter says `status: published` goes live;
+posts already live in Ghost are never touched.
 """
 
 import os
@@ -192,6 +195,10 @@ def main():
             # Clean wikilinks from body before publishing to Ghost
             clean_body = clean_wikilinks(body)
 
+            # Live only on explicit request in the frontmatter, otherwise draft.
+            status = "published" if metadata.get("status", "").strip().lower() == "published" else "draft"
+            print(f"   Status: {status}")
+
             already = existing.get(title.strip().lower())
 
             if already and already.get("status") == "published":
@@ -210,7 +217,7 @@ def main():
                     updated_at=already["updated_at"],
                     title=title,
                     markdown_content=clean_body,
-                    status="draft",
+                    status=status,
                     tags=tags,
                     custom_excerpt=excerpt,
                     featured=featured,
@@ -219,7 +226,7 @@ def main():
                     meta_description=meta_description,
                 )
                 if result:
-                    print(f"   ♻️  Existing draft updated")
+                    print(f"   ♻️  Existing draft updated ({status})")
                     published_count += 1
                     time.sleep(1)
                 else:
@@ -230,7 +237,7 @@ def main():
             result = ghost.create_post(
                 title=title,
                 markdown_content=clean_body,
-                status="draft",
+                status=status,
                 tags=tags,
                 custom_excerpt=excerpt,
                 featured=featured,
@@ -240,7 +247,7 @@ def main():
             )
 
             if result:
-                print(f"   ✅ Published as draft!")
+                print(f"   ✅ Created in Ghost ({status})")
                 try:
                     if isinstance(result, dict) and "id" in result:
                         post_id = result["id"]
