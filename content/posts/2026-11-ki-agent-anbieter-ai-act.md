@@ -9,6 +9,7 @@ tags:
   - KI & Automation
   - KI-Governance
 status: published
+update_live: true
 featured: false
 timestamp: 2026-11-09T10:00:00+01:00
 ---
@@ -72,6 +73,33 @@ fremdes System, ich baue ein eigenes. Art. 25 ist deshalb nicht der Prüfweg.
 In meinem Kursmaterial hieß es zu Agenten sinngemäß, Betreiber bleibe das Unternehmen. Für eingekaufte, fertige
 Agenten stimmt das. Für selbst gebaute greift er zu kurz.
 
+## Und wenn ich den Agenten nur zusammenklicke?
+
+Mistral ist nicht der einzige Hersteller mit Agentenbaukasten. Gerade bringt fast jeder einen heraus, viele davon
+ohne eine Zeile Code (Stand November 2026, laut Herstellerdoku):
+
+| Baukasten | Was du dort festlegst |
+|---|---|
+| Grok Bot (xAI) | Aufgabe, Quellen und Freigabegrenzen des Bots, als Anweisung in der ersten Nachricht |
+| Workspace Agents in ChatGPT (OpenAI) | Anweisungen, verbundene Apps, wiederkehrende Läufe, Einsatz in Slack, Teilen im Team |
+| Plugins in Claude Cowork (Anthropic) | Skills, Konnektoren, Subagenten und Hooks, verteilt über einen firmeneigenen Marktplatz |
+| Copilot Studio (Microsoft) | Agenten für Teams, SharePoint und Outlook, zusammengestellt in einer Oberfläche |
+
+Für die Rolle ist egal, ob du klickst oder programmierst. Die Verordnung fragt auch hier nur zwei Dinge: Wer hat das
+System gebaut, und unter wessen Namen läuft es? Wenn du einem Agenten in Copilot Studio einen festen Zweck gibst, ihn
+an eure Kundendaten anschließt und ihn der Firma als „unseren Angebotsassistenten“ bereitstellst, dann hast du ein
+KI-System entwickelt und in Betrieb genommen.
+
+Ganz so eindeutig wie beim SDK ist es allerdings nicht. Wer dem Assistenten nur ein paar feste Anweisungen mitgibt und
+ihn selbst nutzt, verwendet eher das System des Herstellers, als ein eigenes zu bauen. Das spricht für Betreiber. Je
+mehr du festlegst (Zweck, Werkzeuge, Datenzugriff, eigener Name, Freigabe für Kolleginnen und Kollegen), desto
+deutlicher wirst du Anbieter. Wo genau die Grenze liegt, hat noch kein Gericht entschieden. Ich behandle deshalb jeden
+Agenten, den andere in der Firma nutzen sollen, so, als wäre ich sein Anbieter.
+
+Für die Plattformwahl weiter unten hat das eine angenehme Folge: Die Baukästen der großen Hersteller bringen inzwischen
+viel Verwaltung mit, etwa wer Agenten bauen und teilen darf, welche Werkzeuge welche Gruppe nutzen darf und wie oft ein
+Agent läuft. Genau das braucht man, um die Pflichten als Anbieter zu erfüllen.
+
 ## Wie teuer ist „Anbieter“?
 
 Meistens weniger, als das Wort klingt. Die schweren Pflichten gelten für Hochrisiko-Systeme. Ein Rechercheagent, ein
@@ -126,7 +154,7 @@ Wie ich das für Firmen als offene Vorlage aufbaue, steht im Repo
 
 ## Mein Fazit
 
-Wer mit einem Hersteller-SDK einen Agenten für einen festen Zweck baut und unter eigenem Namen einsetzt, ist Anbieter.
+Wer mit einem Hersteller-SDK oder einem Baukasten einen Agenten für einen festen Zweck baut und unter eigenem Namen einsetzt, ist Anbieter.
 Das ist im Normalfall kein Drama, solange man den Zweck kennt und Anhang III im Blick behält. Ich prüfe deshalb vor
 jedem Agenten: Zweck, Name, Risikoklasse. Und bei der Plattform frage ich nicht nur, was sie kann, sondern auch, welche
 Pflichten sie mir abnimmt.
