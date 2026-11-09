@@ -2,8 +2,10 @@
 """
 Publishes blog posts from content/posts/ to Ghost.
 
-Default is draft. Only a post whose frontmatter says `status: published` goes live;
-posts already live in Ghost are never touched.
+Default is draft. Only a post whose frontmatter says `status: published` goes live.
+Posts already live in Ghost are left alone unless the frontmatter also says
+`update_live: true`; then the live post is rewritten from the file. Posts are
+matched by title, so keep the title unchanged when updating.
 """
 
 import os
@@ -139,7 +141,7 @@ def main():
         print(f"🎯 Restricted to a single post: {only_name}")
 
     # Posts already in Ghost, keyed by title: a second create would duplicate
-    # them. Drafts get updated in place, published posts are left alone.
+    # them. Drafts get updated in place, published posts only with update_live.
     try:
         existing_raw = ghost.get_posts(limit="all").get("posts", [])
         existing = {
@@ -201,15 +203,18 @@ def main():
 
             already = existing.get(title.strip().lower())
 
-            if already and already.get("status") == "published":
-                # Never overwrite something that is live; a text change there
-                # is an editorial decision, not a side effect of a push.
-                print(f"   ⏭️  Already published in Ghost, left untouched")
+            # A live post is only rewritten when the file asks for it with
+            # `update_live: true`. That keeps the change an editorial decision
+            # in the file, not a side effect of a push.
+            update_live = metadata.get("update_live", "false").strip().lower() == "true"
+
+            if already and already.get("status") == "published" and not update_live:
+                print(f"   ⏭️  Already published in Ghost, left untouched (set update_live: true to update)")
                 skipped_count += 1
                 continue
 
             if already:
-                # Draft with the same title: update it instead of adding a
+                # Same title already in Ghost: update it instead of adding a
                 # second one. updated_at lets Ghost reject the write if the
                 # post was edited in the admin in the meantime.
                 result = ghost.update_post(
@@ -226,7 +231,7 @@ def main():
                     meta_description=meta_description,
                 )
                 if result:
-                    print(f"   ♻️  Existing draft updated ({status})")
+                    print(f"   ♻️  Existing post updated ({status})")
                     published_count += 1
                     time.sleep(1)
                 else:
