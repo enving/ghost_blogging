@@ -22,9 +22,11 @@ jobs:
           # Look for actual assignments with quotes, not just variable names
           PATTERNS=(
             "VPS_PW=[^\"' ]"
-            "password[ ]*=[ ]*['\"]"
-            "api_key[ ]*=[ ]*['\"]"
-            "secret[ ]*=[ ]*['\"]"
+            # Nur echte Literale: mindestens vier Zeichen, keine Platzhalter wie
+            # "...", '' oder '{hash}', keine Zeilenparser wie startswith("KEY=").
+            "password[ ]*=[ ]*['\"][^'\"{$. )]{4,}['\"]"
+            "api_key[ ]*=[ ]*['\"][^'\"{$. )]{4,}['\"]"
+            "secret[ ]*=[ ]*['\"][^'\"{$. )]{4,}['\"]"
             "id_rsa[^A-Z]"
             "id_ed25519[^A-Z]"
             "BEGIN[^A-Z]*PRIVATE KEY"
