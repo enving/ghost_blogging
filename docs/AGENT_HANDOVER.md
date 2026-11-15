@@ -6,6 +6,28 @@ Dieses Dokument enthält alle Informationen, die ein neuer Agent braucht, um die
 
 ---
 
+## Workflow-Reparatur: Theme-Rebuild (2026-11-15)
+
+- Ausgangspunkt: `856855f`, fehlgeschlagener [Lauf 42715541095](https://github.com/enving/ghost_blogging/actions/runs/42715541095).
+  `actions/setup-python` meldete: Python 3.9 für Ubuntu 26.04 x64 nicht verfügbar.
+  Der VPS-Schritt wurde nicht erreicht.
+- Änderung: `.github/workflows/rebuild-theme.yml` verwendet Ubuntu 24.04 und Python 3.13.
+  Das feste Runner-Release verhindert einen erneuten impliziten Betriebssystemwechsel.
+  Auslöser und VPS-Schritt bleiben aktiv und unverändert.
+- Prüfung: Das offizielle [Python-Buildmanifest](https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json)
+  enthält keinen passenden 3.9-Build für 26.04, aber stabile 3.13-Builds für 24.04 x64.
+  Lokaler Test mit Python 3.13: YAML und Runtime-Auswahl geprüft, Rebuild-Skript kompiliert,
+  Paramiko importiert; ohne Zugangsdaten endet das Skript erwartungsgemäß mit Exit 1 vor SSH.
+- Zum Prüfzeitpunkt keine offenen Issues, PRs oder weitere aktive Projektaufträge.
+- Grenze: Kein vollständiger Ubuntu-/VPS-Lauf ausgeführt. Der Rebuild läuft nach Merge
+  auf `main` automatisch; dessen Ergebnis einschließlich SSH und Theme-Build prüfen.
+  Das bestehende Skript prüft nicht alle Remote-Exitcodes; ein grüner Lauf allein belegt
+  deshalb keinen erfolgreichen Theme-Build. Diese Skriptüberarbeitung gehört nicht zum Runtime-Fix.
+
+---
+
+## Historischer Projektstand
+
 ## Übersicht
 
 | Komponente | Wert |
