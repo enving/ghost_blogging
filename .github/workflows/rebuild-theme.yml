@@ -11,7 +11,7 @@ on:
 
 jobs:
   rebuild-theme:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Rebuild Ghost Theme on VPS
     steps:
       - name: Checkout repository
@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.13'
 
       - name: Install dependencies
         run: |
