@@ -31,16 +31,6 @@ def main():
         return res.json() if res.content else {}
 
     # Keep unrelated posts, memberships, menus and existing author URLs intact.
-    user_data = call("GET", "users/?limit=all")
-    matching = [u for u in (user_data or {}).get("users", [])
-                if u["name"] in ("Tristan Häfele", "Tristan Wilms")]
-    if len(matching) == 1:
-        user = matching[0]
-        if call("PUT", f"users/{user['id']}/", json={"users": [{"name": "Tristan Wilms", "website": LINKEDIN}]}) is None:
-            pending.append("Author profile")
-    else:
-        pending.append("Author profile")
-
     pages = call("GET", "pages/slug/about/?formats=html")
     if pages:
         page = pages["pages"][0]
@@ -59,10 +49,6 @@ def main():
             pending.append("About page contains custom content")
     else:
         pending.append("About page")
-    if call("PUT", "settings/", json={"settings":[{"key":"title","value":"Digitalalchemisten"},
-            {"key":"description","value":DESCRIPTION},{"key":"accent_color","value":"#0040ce"}]}) is None:
-        pending.append("Site settings")
-
     theme = ROOT / "appearance/digitalalchemisten-praxis.zip"
     with theme.open("rb") as f:
         result = call("POST", "themes/upload/", files={"file": (theme.name, f, "application/zip")})

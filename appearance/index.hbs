@@ -1,0 +1,17 @@
+{{!< default}}
+<header class="da-cover outer"><div class="inner"><div class="da-intro"><h1>Digitalalchemisten</h1><p>Ich probiere aus, wie wir KI im Unternehmen für konkrete Aufgaben nutzen können. Hier zeige ich, wie ich vorgehe und woran du selbst prüfen kannst, ob das Ergebnis taugt.</p><a href="/about/">Tristan Wilms</a></div></div></header>
+
+<main id="site-main" class="site-main outer">
+<div class="inner posts">
+
+    <div class="post-feed">
+        {{#foreach posts}}
+            {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
+            {{> "post-card"}}
+        {{/foreach}}
+    </div>
+
+    {{pagination}}
+
+</div>
+</main>

@@ -1,0 +1,11 @@
+:root{--da-paper:#fcf9f0;--da-ink:#1c1c17;--da-blue:#0040ce}
+body,.viewport,.site-content,.post-card,.article{background-color:var(--da-paper);color:var(--da-ink)}
+.da-cover{background:#0a1325 url(../saturn.webp) center 55%/cover;color:#fff;padding-block:clamp(3rem,7vw,9rem)}
+.da-intro{max-width:54rem;padding:clamp(1.8rem,3vw,3.2rem);background:#0a1325f2;border-left:4px solid #ffce5f}
+.da-intro h1{font:600 clamp(2.8rem,4.5vw,5.2rem)/1.08 Georgia,serif;color:#ffce5f;margin:0 0 1.5rem;letter-spacing:-.035em}
+.da-intro p{font-size:clamp(1.65rem,2vw,2.1rem);line-height:1.45;margin:0 0 1.2rem}.da-intro a{color:#ffce5f;text-decoration:underline;text-underline-offset:.2em}
+.gh-content a:not(.kg-btn):not(.kg-bookmark-container):not(.kg-file-card-container){text-decoration-color:var(--da-blue)}
+.post-card-title,.article-title{font-family:Georgia,serif}.site-footer{background:#0a1325;color:white}
+.gh-head-logo .da-orbit{width:32px;height:32px;object-fit:contain;margin-inline-end:8px;background:#0a1325;border-radius:50%}
+html.dark-mode .viewport,html.dark-mode .site-content,html.dark-mode .post-card,html.dark-mode .article{background:#15181d;color:#eee}
+@media(prefers-color-scheme:dark){html.auto-color .viewport,html.auto-color .site-content,html.auto-color .post-card,html.auto-color .article{background:#15181d;color:#eee}}
